@@ -7,8 +7,8 @@ type ButtonProps = PressableProps & {
   children: React.ReactNode | string;
   type?: "primary" | "outline";
   size?: "md" | "lg";
-  Disabled?: boolean;
-  hasShadow?: boolean;
+  isDisabled?: boolean;
+  isHasShadow?: boolean;
   width?: string | number;
   height?: string | number;
   onPress?: () => void;
@@ -18,8 +18,8 @@ export default function Button({
   children,
   type = "primary",
   size = "md",
-  disabled = false,
-  hasShadow = false,
+  isDisabled = false,
+  isHasShadow = false,
   width = "80%",
   height = 60,
   onPress,
@@ -32,11 +32,11 @@ export default function Button({
         type === "primary" && typeStyles().primaryBg,
         type === "outline" && typeStyles().outlineBg,
         { width: width as any, height: height as any },
-        disabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
-        hasShadow && layoutStyles.shadow,
-        !disabled && pressed && styles.pressed,
+        isDisabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
+        isHasShadow && layoutStyles.shadow,
+        !isDisabled && pressed && styles.pressed,
       ]}
-      onPress={disabled ? undefined : onPress}
+      onPress={isDisabled ? undefined : onPress}
       {...props}
     >
       {typeof children === "string" ? (
@@ -46,7 +46,7 @@ export default function Button({
             type === "outline" && typeStyles().outlineText,
             size === "md" && sizeStyles.mdText,
             size === "lg" && sizeStyles.lgText,
-            disabled && { color: theme.light.white },
+            isDisabled && { color: theme.light.white },
           ]}
         >
           {children}

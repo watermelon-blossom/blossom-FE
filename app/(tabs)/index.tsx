@@ -14,9 +14,8 @@ import { ThemedView } from "@/components/ThemedView";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useCountStore from "@/store/useCountStore";
-import Button from "@/constants/Button";
-import IconButton from "@/constants/IconButton";
-import CustomCalendar from "@/constants/CustomCalendar";
+import Button from "@/components/ui/Button";
+import IconButton from "@/components/ui/IconButton";
 
 export default function HomeScreen() {
   // const [count, setCount] = useState(0);
@@ -40,43 +39,7 @@ export default function HomeScreen() {
         justifyContent: "center",
         alignItems: "center",
       }}
-    >
-      <Text>{count}</Text>
-      <Spacer size={20} />
-      <Button
-        type="primary"
-        size="md"
-        width="80%"
-        height={60}
-        onPress={handlePressButton}
-      >
-        Press Button
-      </Button>
-      <Spacer size={15} />
-      <Button
-        type="outline"
-        size="md"
-        width="80%"
-        height={60}
-        onPress={handlePressButton}
-      >
-        Press Button
-      </Button>
-      <Spacer size={20} />
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <IconButton iconName="back" type="white" onPress={handlePressButton} />
-        <IconButton iconName="more" type="white" onPress={handlePressButton} />
-        <IconButton
-          iconName="filter"
-          type="white"
-          onPress={handlePressButton}
-        />
-        <IconButton iconName="send" type="white" onPress={handlePressButton} />
-        <IconButton iconName="align" type="white" onPress={handlePressButton} />
-      </View>
-      {/* <Spacer size={20} /> */}
-      {/* <CustomCalendar height={100} /> */}
-    </SafeAreaView>
+    ></SafeAreaView>
     // <ParallaxScrollView
     //   headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
     //   headerImage={
