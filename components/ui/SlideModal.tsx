@@ -79,4 +79,4 @@ const xml = (width: number = 365) => `
 
 export default SlideModal;
 
-export type ActionSheetRefType = ActionSheetRef;
+export type SlideModalRefType = ActionSheetRef;
