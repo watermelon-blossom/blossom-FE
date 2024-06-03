@@ -14,32 +14,25 @@ import { ThemedView } from "@/components/ThemedView";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useCountStore from "@/store/useCountStore";
-import Button from "@/components/ui/Button";
-import IconButton from "@/components/ui/IconButton";
 
 export default function HomeScreen() {
   // const [count, setCount] = useState(0);
   const { count, setNumber, setPlusOne } = useCountStore();
 
-  const Spacer: React.FC<{ size: number }> = ({ size }) => {
-    return <View style={{ height: size }} />;
-  };
-
   const handlePressButton = () => {
     console.log("press");
-    setPlusOne();
-    // setNumber(0);
+    // setPlusOne();
+    setNumber(0);
     // setCount((prev) => prev + 1);
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    ></SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Text>{count}</Text>
+      <Pressable onPress={handlePressButton}>
+        <Text>plus</Text>
+      </Pressable>
+    </SafeAreaView>
     // <ParallaxScrollView
     //   headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
     //   headerImage={

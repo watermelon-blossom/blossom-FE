@@ -4,7 +4,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { KeyboardAvoidingView } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -29,16 +28,15 @@ export default function RootLayout() {
   }
 
   return (
-    // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <SafeAreaProvider>
-        <Stack>
+        <Stack screenOptions={{ contentStyle: { backgroundColor: "white" } }}>
           <Stack.Screen name="index" options={{ headerTitle: "Test Screen" }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="hyunwooTest" />
+          <Stack.Screen name="siwonTest" />
           <Stack.Screen name="+not-found" />
         </Stack>
       </SafeAreaProvider>
     </KeyboardAvoidingView>
-    // </ThemeProvider>
   );
 }
