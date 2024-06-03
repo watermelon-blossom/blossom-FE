@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import Button from "@/components/ui/Button";
-import IconButton from "@/components/ui/IconButton";
 
 export default function TestScreen() {
   const handlePressButton = () => {
@@ -11,24 +10,6 @@ export default function TestScreen() {
   return (
     <View style={styles.screen}>
       <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <Text style={{ fontFamily: "BM", fontWeight: "normal" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <Text style={{ fontFamily: "BM", fontWeight: "300" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <Text style={{ fontFamily: "BM", fontWeight: "400" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <Text style={{ fontFamily: "BM", fontWeight: "500" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <Text style={{ fontFamily: "BM", fontWeight: "600" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <Text style={{ fontFamily: "BM", fontWeight: "700" }}>
         Hyunwoo Test Screen
       </Text>
 
@@ -62,22 +43,6 @@ export default function TestScreen() {
       >
         Press Button
       </Button>
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <IconButton iconName="back" type="white" onPress={handlePressButton} />
-
-        <IconButton iconName="more" type="white" onPress={handlePressButton} />
-
-        <IconButton
-          iconName="filter"
-          type="white"
-          onPress={handlePressButton}
-        />
-
-        <IconButton iconName="send" type="white" onPress={handlePressButton} />
-
-        <IconButton iconName="align" type="white" onPress={handlePressButton} />
-      </View>
     </View>
   );
 }
