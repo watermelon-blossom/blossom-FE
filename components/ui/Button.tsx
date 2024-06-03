@@ -1,5 +1,4 @@
 import { Pressable, PressableProps, StyleSheet, Text } from "react-native";
-import { theme } from "@/constants/theme";
 import { font } from "@/constants/font";
 import { colors } from "@/constants/colors";
 
@@ -45,7 +44,7 @@ export default function Button({
             type === "primary" && typeStyles.primaryText,
             type === "outline" && typeStyles.outlineText,
             sizeStyles[size],
-            disabled && { color: theme.light.white },
+            disabled && { color: colors.theme.white },
           ]}
         >
           {children}
@@ -68,17 +67,17 @@ const styles = StyleSheet.create({
 
 const typeStyles = StyleSheet.create({
   primaryBg: {
-    backgroundColor: theme.light.primary,
+    backgroundColor: colors.theme.primary,
     borderWidth: 0.5,
-    borderColor: theme.light.primary,
+    borderColor: colors.theme.primary,
   },
-  primaryText: { color: theme.light.white },
+  primaryText: { color: colors.theme.white },
   outlineBg: {
-    backgroundColor: theme.light.white,
+    backgroundColor: colors.theme.white,
     borderWidth: 0.5,
     borderColor: colors.gray[300],
   },
-  outlineText: { color: theme.light.black },
+  outlineText: { color: colors.theme.black },
 });
 
 const layoutStyles = StyleSheet.create({
