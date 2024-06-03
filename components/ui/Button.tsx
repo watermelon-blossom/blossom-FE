@@ -7,7 +7,7 @@ type ButtonProps = PressableProps & {
   children: React.ReactNode | string;
   type?: "primary" | "outline";
   size?: "md" | "lg";
-  isDisabled?: boolean;
+  disabled?: boolean;
   isHasShadow?: boolean;
   width?: string | number;
   height?: string | number;
@@ -18,7 +18,7 @@ export default function Button({
   children,
   type = "primary",
   size = "md",
-  isDisabled = false,
+  disabled = false,
   isHasShadow = false,
   width = "80%",
   height = 60,
@@ -29,24 +29,23 @@ export default function Button({
     <Pressable
       style={({ pressed }) => [
         styles.button,
-        type === "primary" && typeStyles().primaryBg,
-        type === "outline" && typeStyles().outlineBg,
+        type === "primary" && typeStyles.primaryBg,
+        type === "outline" && typeStyles.outlineBg,
         { width: width as any, height: height as any },
-        isDisabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
+        disabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
         isHasShadow && layoutStyles.shadow,
-        !isDisabled && pressed && styles.pressed,
+        !disabled && pressed && styles.pressed,
       ]}
-      onPress={isDisabled ? undefined : onPress}
+      onPress={disabled ? undefined : onPress}
       {...props}
     >
       {typeof children === "string" ? (
         <Text
           style={[
-            type === "primary" && typeStyles().primaryText,
-            type === "outline" && typeStyles().outlineText,
-            size === "md" && sizeStyles.mdText,
-            size === "lg" && sizeStyles.lgText,
-            isDisabled && { color: theme.light.white },
+            type === "primary" && typeStyles.primaryText,
+            type === "outline" && typeStyles.outlineText,
+            sizeStyles[size],
+            disabled && { color: theme.light.white },
           ]}
         >
           {children}
@@ -67,21 +66,20 @@ const styles = StyleSheet.create({
   pressed: { opacity: 0.7 },
 });
 
-const typeStyles = () =>
-  StyleSheet.create({
-    primaryBg: {
-      backgroundColor: theme.light.primary,
-      borderWidth: 0.5,
-      borderColor: theme.light.primary,
-    },
-    primaryText: { color: theme.light.white },
-    outlineBg: {
-      backgroundColor: theme.light.white,
-      borderWidth: 0.5,
-      borderColor: colors.gray[300],
-    },
-    outlineText: { color: theme.light.black },
-  });
+const typeStyles = StyleSheet.create({
+  primaryBg: {
+    backgroundColor: theme.light.primary,
+    borderWidth: 0.5,
+    borderColor: theme.light.primary,
+  },
+  primaryText: { color: theme.light.white },
+  outlineBg: {
+    backgroundColor: theme.light.white,
+    borderWidth: 0.5,
+    borderColor: colors.gray[300],
+  },
+  outlineText: { color: theme.light.black },
+});
 
 const layoutStyles = StyleSheet.create({
   shadow: {
@@ -97,12 +95,12 @@ const layoutStyles = StyleSheet.create({
 });
 
 const sizeStyles = StyleSheet.create({
-  mdText: {
+  md: {
     fontSize: font.size.md,
     lineHeight: font.size.md * 1.2,
     fontFamily: font.family.medium,
   },
-  lgText: {
+  lg: {
     fontSize: font.size.lg,
     lineHeight: font.size.lg * 1.2,
     fontFamily: font.family.bold,
