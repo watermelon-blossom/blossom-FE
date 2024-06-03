@@ -1,4 +1,6 @@
 import { gray } from "@/constants/colors";
+import { fontSize } from "@/constants/font";
+import { wScale } from "@/util/responsive.util";
 import React from "react";
 import {
   Text,
@@ -25,7 +27,7 @@ export default function TextInput({
   value,
   width = "100%",
   disabled = false,
-  height = 60,
+  height = wScale(60),
   onChangeText,
   ...others
 }: TextInputProps) {
@@ -53,26 +55,26 @@ export default function TextInput({
 const styles = StyleSheet.create({
   textWrapper: {
     position: "absolute",
-    top: -8,
-    left: 26,
+    top: -wScale(8),
+    left: wScale(26),
     alignItems: "center",
-    paddingHorizontal: 8,
+    paddingHorizontal: wScale(8),
     backgroundColor: "white",
     zIndex: 3000,
   },
   nameText: {
     color: gray[600],
-    fontSize: 14,
+    fontSize: wScale(14),
   },
   input: {
     justifyContent: "center",
-    paddingHorizontal: 24,
+    paddingHorizontal: wScale(24),
     backgroundColor: "white",
-    borderRadius: 16,
+    borderRadius: wScale(16),
     borderColor: gray[200],
     borderWidth: 1,
     color: "black",
-    fontSize: 16,
+    fontSize: fontSize.md,
   },
   disabled: { opacity: 0.4 },
 });
