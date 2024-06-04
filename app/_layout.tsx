@@ -11,8 +11,10 @@ SplashScreen.preventAutoHideAsync();
 
 // TODO: ThemeProvider 설정하기
 export default function RootLayout() {
+  // const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    BM: require("../assets/fonts/BMDOHYEON_ttf.ttf"),
   });
 
   useEffect(() => {

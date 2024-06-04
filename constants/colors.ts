@@ -11,6 +11,25 @@ export const gray = {
   900: "#212121",
 };
 
+export const systemColor = {
+  warning: "#FFBB2E",
+  error: "#CC0000",
+  success: "#28C840",
+  successLight: "#D4F4D9",
+  focus: "#1460cc",
+  disabled: "#A9A9A9",
+};
+
+export const theme = {
+  black: "#000000",
+  white: "#FFFFFF",
+  primary: "#F77270",
+  secondary: "#FFF4F2",
+  contrast: "#A088FF",
+};
+
 export const colors = {
   gray,
+  theme,
+  systemColor,
 };

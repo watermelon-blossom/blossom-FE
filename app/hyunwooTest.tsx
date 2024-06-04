@@ -1,20 +1,48 @@
-import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function TestScreen() {
-  const [userInput, setUserInput] = useState({
-    name: "",
-    password: "",
-    disabled: "",
-  });
+import Button from "@/components/ui/Button";
 
-  const handleChangeText = (name: string, text: string) => {
-    setUserInput((prev) => ({ ...prev, [name]: text }));
+export default function TestScreen() {
+  const handlePressButton = () => {
+    console.log("press");
   };
 
   return (
     <View style={styles.screen}>
-      <Text>Hyunwoo Test Screen</Text>
+      <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
+        Hyunwoo Test Screen
+      </Text>
+
+      <Button
+        type="primary"
+        size="md"
+        width="80%"
+        height={60}
+        onPress={handlePressButton}
+      >
+        Press Button
+      </Button>
+
+      <Button
+        type="outline"
+        size="md"
+        width="80%"
+        height={60}
+        onPress={handlePressButton}
+      >
+        Press Button
+      </Button>
+
+      <Button
+        type="primary"
+        size="md"
+        disabled={true}
+        width="80%"
+        height={60}
+        onPress={handlePressButton}
+      >
+        Press Button
+      </Button>
     </View>
   );
 }
