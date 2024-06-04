@@ -1,14 +1,21 @@
-import TextInput from "@/components/ui/TextInput";
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
+import { useRef, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TestScreen() {
+  const slideModalRef = useRef<SlideModalRefType>(null);
+
   const [userInput, setUserInput] = useState({
     name: "",
     password: "",
     disabled: "",
   });
+
+  const handlePress = () => {
+    // 컨트롤러의 show 메서드로 모달 표시
+    slideModalRef.current?.show();
+  };
 
   const handleChangeText = (name: string, text: string) => {
     setUserInput((prev) => ({ ...prev, [name]: text }));
@@ -16,28 +23,13 @@ export default function TestScreen() {
 
   return (
     <View style={styles.screen}>
-      <TextInput
-        name="name"
-        label="First name"
-        value={userInput.name}
-        placeholder="Enter your name"
-        onChangeText={handleChangeText}
-      />
-      <TextInput
-        name="password"
-        label="Password"
-        value={userInput.password}
-        placeholder="Enter your password"
-        secureTextEntry
-        onChangeText={handleChangeText}
-      />
-      <TextInput
-        name="disabled"
-        label="First name"
-        disabled
-        value={userInput.disabled}
-        onChangeText={handleChangeText}
-      />
+      <Pressable onPress={handlePress}>
+        <Text>open</Text>
+      </Pressable>
+
+      <SlideModal ref={slideModalRef}>
+        <Text style={{ height: 300 }}>test</Text>
+      </SlideModal>
     </View>
   );
 }
