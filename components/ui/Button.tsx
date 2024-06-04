@@ -1,6 +1,7 @@
 import { Pressable, PressableProps, StyleSheet, Text } from "react-native";
 import { font } from "@/constants/font";
 import { colors } from "@/constants/colors";
+import { wScale } from "@/util/responsive.util";
 
 type ButtonProps = PressableProps & {
   children: React.ReactNode | string;
@@ -20,7 +21,7 @@ export default function Button({
   disabled = false,
   isHasShadow = false,
   width = "80%",
-  height = 60,
+  height = wScale(60),
   onPress,
   ...props
 }: ButtonProps) {
@@ -58,7 +59,7 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 14,
+    borderRadius: wScale(14),
     justifyContent: "center",
     alignItems: "center",
   },
@@ -68,13 +69,13 @@ const styles = StyleSheet.create({
 const typeStyles = StyleSheet.create({
   primaryBg: {
     backgroundColor: colors.theme.primary,
-    borderWidth: 0.5,
+    borderWidth: wScale(0.5),
     borderColor: colors.theme.primary,
   },
   primaryText: { color: colors.theme.white },
   outlineBg: {
     backgroundColor: colors.theme.white,
-    borderWidth: 0.5,
+    borderWidth: wScale(0.5),
     borderColor: colors.gray[300],
   },
   outlineText: { color: colors.theme.black },
@@ -85,10 +86,10 @@ const layoutStyles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: wScale(2),
     },
     shadowOpacity: 0.4,
-    shadowRadius: 3.84,
+    shadowRadius: wScale(3.84),
     elevation: 5,
   },
 });
@@ -97,11 +98,11 @@ const sizeStyles = StyleSheet.create({
   md: {
     fontSize: font.size.md,
     lineHeight: font.size.md * 1.2,
-    fontFamily: font.family.medium,
+    fontFamily: font.family.BM,
   },
   lg: {
     fontSize: font.size.lg,
     lineHeight: font.size.lg * 1.2,
-    fontFamily: font.family.bold,
+    fontFamily: font.family.BM,
   },
 });
