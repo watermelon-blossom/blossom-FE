@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import Button from "@/components/ui/Button";
+import IconButton from "@/components/ui/IconButton";
 
 export default function TestScreen() {
   const handlePressButton = () => {
@@ -12,37 +13,7 @@ export default function TestScreen() {
       <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
         Hyunwoo Test Screen
       </Text>
-
-      <Button
-        type="primary"
-        size="md"
-        width="80%"
-        height={60}
-        onPress={handlePressButton}
-      >
-        Press Button
-      </Button>
-
-      <Button
-        type="outline"
-        size="md"
-        width="80%"
-        height={60}
-        onPress={handlePressButton}
-      >
-        Press Button
-      </Button>
-
-      <Button
-        type="primary"
-        size="md"
-        disabled={true}
-        width="80%"
-        height={60}
-        onPress={handlePressButton}
-      >
-        Press Button
-      </Button>
+      <IconButton onPress={handlePressButton} />
     </View>
   );
 }
