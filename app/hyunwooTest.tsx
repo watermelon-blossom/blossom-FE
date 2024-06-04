@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import Button from "@/components/ui/Button";
 import IconButton from "@/components/ui/IconButton";
+import { colors } from "@/constants/colors";
 
 export default function TestScreen() {
   const handlePressButton = () => {
@@ -13,7 +13,32 @@ export default function TestScreen() {
       <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
         Hyunwoo Test Screen
       </Text>
-      <IconButton onPress={handlePressButton} />
+      <IconButton
+        iconName="back"
+        iconColor={colors.theme.primary}
+        onPress={handlePressButton}
+      />
+      <IconButton
+        iconName="setting"
+        iconColor={colors.theme.primary}
+        onPress={handlePressButton}
+      />
+      <IconButton
+        iconName="more"
+        iconColor={colors.theme.black}
+        onPress={handlePressButton}
+      />
+      <IconButton
+        iconName="send"
+        iconColor={colors.theme.primary}
+        onPress={handlePressButton}
+      />
+      <IconButton
+        type="transparent"
+        iconName="sort"
+        iconColor={colors.theme.black}
+        onPress={handlePressButton}
+      />
     </View>
   );
 }

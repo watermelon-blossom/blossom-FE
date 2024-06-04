@@ -2,30 +2,30 @@ import React from "react";
 
 import { Pressable, PressableProps, StyleSheet, ViewStyle } from "react-native";
 import { colors } from "@/constants/colors";
-// import SvgUri from "react-native-svg-uri";
+import { wScale } from "@/util/responsive.util";
+import SvgIcon from "./SvgIcon";
+import * as Icons from "@/assets/Icons/index";
 
 type IconButtonProps = PressableProps & {
-  // children: React.ReactNode | string;
   type?: "white" | "transparent";
-  iconName?: string;
+  iconName?: keyof typeof Icons;
   iconSize?: number;
+  iconColor?: string;
   buttonSize?: number;
   disabled?: boolean;
   onPress: () => void;
 };
 
 export default function IconButton({
-  // children,
   type = "white",
   iconName = "back",
-  iconSize = 24,
-  buttonSize = 48,
+  iconColor = colors.theme.primary,
+  iconSize = wScale(24),
+  buttonSize = wScale(48),
   disabled = false,
   onPress,
   ...props
 }: IconButtonProps) {
-  //   let path: string = `@/assets/Icons/${iconName}.svg`;
-  //   console.log(path);
   return (
     <Pressable
       style={({ pressed }) => [
@@ -42,11 +42,7 @@ export default function IconButton({
       onPress={onPress}
       {...props}
     >
-      {/* <SvgUri
-        width={iconSize}
-        height={iconSize}
-        svgXmlData=""
-      ></SvgUri> */}
+      <SvgIcon name={iconName} size={iconSize} fill={iconColor} />
     </Pressable>
   );
 }
@@ -55,7 +51,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 16,
+    borderRadius: wScale(16),
   },
   pressed: { opacity: 0.7 },
 });
@@ -64,12 +60,12 @@ const typeStyles = () =>
   StyleSheet.create({
     whiteBg: {
       backgroundColor: colors.theme.white,
-      borderWidth: 0.5,
+      borderWidth: wScale(0.5),
       borderColor: colors.gray[200],
     },
     transparentBg: {
       backgroundColor: "transparent",
-      borderWidth: 0.5,
-      borderColor: colors.theme.white,
+      borderWidth: wScale(0.5),
+      borderColor: colors.gray[200],
     },
   });
