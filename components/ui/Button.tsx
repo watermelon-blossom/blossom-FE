@@ -32,7 +32,7 @@ export default function Button({
         type === "primary" && typeStyles.primaryBg,
         type === "outline" && typeStyles.outlineBg,
         { width: width as any, height: height as any },
-        disabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
+        disabled && styles.disabledStyle,
         isHasShadow && layoutStyles.shadow,
         !disabled && pressed && styles.pressed,
       ]}
@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   pressed: { opacity: 0.7 },
+  disabledStyle: {
+    backgroundColor: colors.gray[100],
+    borderWidth: 0,
+  },
 });
 
 const typeStyles = StyleSheet.create({
