@@ -21,7 +21,7 @@ export default function IconButton({
   iconName = "back",
   iconColor = colors.theme.primary,
   iconSize = wScale(24),
-  buttonSize = wScale(48),
+  buttonSize = wScale(52),
   disabled = false,
   onPress,
   ...props
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: wScale(16),
+    borderRadius: wScale(15),
   },
   pressed: { opacity: 0.7 },
   disabledStyle: {
@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
 const typeStyles = StyleSheet.create({
   whiteBg: {
     backgroundColor: colors.theme.white,
-    borderWidth: wScale(0.5),
+    borderWidth: wScale(1),
     borderColor: colors.gray[200],
   },
   transparentBg: {
     backgroundColor: "transparent",
-    borderWidth: wScale(0.5),
+    borderWidth: wScale(1),
     borderColor: colors.gray[200],
   },
 });
