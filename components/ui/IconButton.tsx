@@ -30,19 +30,23 @@ export default function IconButton({
     <Pressable
       style={({ pressed }) => [
         styles.button,
-        type === "white" && typeStyles().whiteBg,
-        type === "transparent" && typeStyles().transparentBg,
-        disabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
+        type === "white" && typeStyles.whiteBg,
+        type === "transparent" && typeStyles.transparentBg,
+        disabled && styles.disabledStyle,
         {
           width: buttonSize,
           height: buttonSize,
         },
         !disabled && pressed && styles.pressed,
       ]}
-      onPress={onPress}
+      onPress={disabled ? undefined : onPress}
       {...props}
     >
-      <SvgIcon name={iconName} size={iconSize} fill={iconColor} />
+      <SvgIcon
+        name={iconName}
+        size={iconSize}
+        fill={disabled ? colors.theme.white : iconColor}
+      />
     </Pressable>
   );
 }
@@ -54,18 +58,21 @@ const styles = StyleSheet.create({
     borderRadius: wScale(16),
   },
   pressed: { opacity: 0.7 },
+  disabledStyle: {
+    backgroundColor: colors.gray[100],
+    borderWidth: 0,
+  },
 });
 
-const typeStyles = () =>
-  StyleSheet.create({
-    whiteBg: {
-      backgroundColor: colors.theme.white,
-      borderWidth: wScale(0.5),
-      borderColor: colors.gray[200],
-    },
-    transparentBg: {
-      backgroundColor: "transparent",
-      borderWidth: wScale(0.5),
-      borderColor: colors.gray[200],
-    },
-  });
+const typeStyles = StyleSheet.create({
+  whiteBg: {
+    backgroundColor: colors.theme.white,
+    borderWidth: wScale(0.5),
+    borderColor: colors.gray[200],
+  },
+  transparentBg: {
+    backgroundColor: "transparent",
+    borderWidth: wScale(0.5),
+    borderColor: colors.gray[200],
+  },
+});

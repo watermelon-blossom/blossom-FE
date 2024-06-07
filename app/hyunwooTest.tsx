@@ -13,32 +13,35 @@ export default function TestScreen() {
       <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
         Hyunwoo Test Screen
       </Text>
-      <IconButton
-        iconName="back"
-        iconColor={colors.theme.primary}
-        onPress={handlePressButton}
-      />
-      <IconButton
-        iconName="setting"
-        iconColor={colors.theme.primary}
-        onPress={handlePressButton}
-      />
-      <IconButton
-        iconName="more"
-        iconColor={colors.theme.black}
-        onPress={handlePressButton}
-      />
-      <IconButton
-        iconName="send"
-        iconColor={colors.theme.primary}
-        onPress={handlePressButton}
-      />
-      <IconButton
-        type="transparent"
-        iconName="sort"
-        iconColor={colors.theme.black}
-        onPress={handlePressButton}
-      />
+      <View style={{ flexDirection: "row" }}>
+        <IconButton
+          iconName="back"
+          iconColor={colors.theme.primary}
+          disabled={true}
+          onPress={handlePressButton}
+        />
+        <IconButton
+          iconName="setting"
+          iconColor={colors.theme.primary}
+          onPress={handlePressButton}
+        />
+        <IconButton
+          iconName="more"
+          iconColor={colors.theme.black}
+          onPress={handlePressButton}
+        />
+        <IconButton
+          iconName="send"
+          iconColor={colors.theme.primary}
+          onPress={handlePressButton}
+        />
+        <IconButton
+          type="transparent"
+          iconName="sort"
+          iconColor={colors.theme.black}
+          onPress={handlePressButton}
+        />
+      </View>
     </View>
   );
 }
