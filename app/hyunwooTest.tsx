@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import IconButton from "@/components/ui/IconButton";
-import { colors } from "@/constants/colors";
+import Heading from "@/components/ui/Heading";
 
 export default function TestScreen() {
   const handlePressButton = () => {
@@ -10,38 +9,12 @@ export default function TestScreen() {
 
   return (
     <View style={styles.screen}>
-      <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
-        Hyunwoo Test Screen
-      </Text>
-      <View style={{ flexDirection: "row" }}>
-        <IconButton
-          iconName="back"
-          iconColor={colors.theme.primary}
-          disabled={true}
-          onPress={handlePressButton}
-        />
-        <IconButton
-          iconName="setting"
-          iconColor={colors.theme.primary}
-          onPress={handlePressButton}
-        />
-        <IconButton
-          iconName="more"
-          iconColor={colors.theme.black}
-          onPress={handlePressButton}
-        />
-        <IconButton
-          iconName="send"
-          iconColor={colors.theme.primary}
-          onPress={handlePressButton}
-        />
-        <IconButton
-          type="transparent"
-          iconName="sort"
-          iconColor={colors.theme.black}
-          onPress={handlePressButton}
-        />
-      </View>
+      <Heading level={1}>H1: Hyunwoo Test</Heading>
+      <Heading level={2}>H2: Hyunwoo Test</Heading>
+      <Heading level={3}>H3: Hyunwoo Test</Heading>
+      <Heading level={4}>H4: Hyunwoo Test</Heading>
+      <Heading level={5}>H5: Hyunwoo Test</Heading>
+      <Heading level={6}>H6: Hyunwoo Test</Heading>
     </View>
   );
 }
