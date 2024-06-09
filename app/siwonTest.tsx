@@ -1,35 +1,35 @@
-import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
-import { useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import RadioButton, { RadioButtonMenu } from "@/components/ui/RadioButton";
+
+const RADIO_BUTTON_MENUS: RadioButtonMenu[] = [
+  { label: "실내 데이트", value: "inside" },
+  { label: "실외 데이트", value: "ouside" },
+  { label: "실내와 실외 그 사이 어딘가", value: "somewhere" },
+];
 
 export default function TestScreen() {
-  const slideModalRef = useRef<SlideModalRefType>(null);
-
   const [userInput, setUserInput] = useState({
-    name: "",
-    password: "",
-    disabled: "",
+    q1: "",
   });
 
-  const handlePress = () => {
-    // 컨트롤러의 show 메서드로 모달 표시
-    slideModalRef.current?.show();
+  const handlePressMenu = (name: string, value: string) => {
+    setUserInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleChangeText = (name: string, text: string) => {
-    setUserInput((prev) => ({ ...prev, [name]: text }));
-  };
+  console.log(userInput);
 
   return (
     <View style={styles.screen}>
-      <Pressable onPress={handlePress}>
-        <Text>open</Text>
-      </Pressable>
-
-      <SlideModal ref={slideModalRef}>
-        <Text style={{ height: 300 }}>test</Text>
-      </SlideModal>
+      <RadioButton
+        menus={RADIO_BUTTON_MENUS}
+        name="q1"
+        value={userInput.q1}
+        onSelectMenu={handlePressMenu}
+      />
     </View>
   );
 }
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    padding: 20,
+    padding: 40,
   },
 });
