@@ -1,3 +1,4 @@
+import Header from "@/components/ui/Header";
 import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
 import { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -23,6 +24,13 @@ export default function TestScreen() {
 
   return (
     <View style={styles.screen}>
+      <Header
+        left={<Text>left</Text>}
+        title="Discover"
+        subTitle="Chicago, IL"
+        right={<Text>right</Text>}
+      />
+      <View style={{ backgroundColor: "yellow", width: "100%", height: 700 }} />
       <Pressable onPress={handlePress}>
         <Text>open</Text>
       </Pressable>
