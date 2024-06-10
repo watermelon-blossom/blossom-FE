@@ -53,7 +53,7 @@ export default function AvatarInput() {
         )}
       </Pressable>
 
-      <Pressable style={styles.iconWrapper}>
+      <Pressable style={styles.iconWrapper} onPress={pickImage}>
         <SvgIcon name="camera" fill={theme.white} />
       </Pressable>
     </View>
