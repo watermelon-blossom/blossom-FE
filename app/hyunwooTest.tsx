@@ -13,15 +13,11 @@ export default function TestScreen() {
       <CText size="xs" color={colors.theme.primary}>
         Hyunwoo Test
       </CText>
-      <CText
-        size="sm"
-        textDecorationLine="underline"
-        color={colors.theme.black}
-      >
+      <CText size="sm" color={colors.theme.black}>
         Hyunwoo Test
       </CText>
       <CText size="md" color={colors.theme.primary}>
-        안녕하세요. 저는 지금 watermelon 팀과 함께 blossom 소개팅 앱을 만들고
+        안녕하세요. 저는 지금 워터멜론 팀과 함께 블라썸 소개팅 앱을 만들고
         있습니다.
       </CText>
       <CText size="lg" color={colors.theme.black}>
