@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import AvatarInput from "@/components/ui/AvatarInput";
+import CText from "@/components/ui/CText";
+import { theme } from "@/constants/colors";
 
 export default function TestScreen() {
   const handlePressButton = () => {
@@ -9,9 +11,9 @@ export default function TestScreen() {
 
   return (
     <View style={styles.screen}>
-      <Text style={{ fontFamily: "BM", fontWeight: "bold" }}>
+      <CText size="xl" color={theme.primary}>
         Hyunwoo Test Screen
-      </Text>
+      </CText>
       <View style={{ flexDirection: "row" }}>
         <AvatarInput />
       </View>
