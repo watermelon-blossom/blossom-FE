@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { Button, Image, Pressable, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Linking,
+  Pressable,
+  StyleSheet,
+  View,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { theme, gray } from "@/constants/colors";
 import SvgIcon from "./SvgIcon";
 import { wScale } from "@/util/responsive.util";
@@ -9,22 +15,28 @@ import { wScale } from "@/util/responsive.util";
 export default function AvatarInput() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const pickImage = async () => {
-    // Request permission to access the photo library
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
+
     if (permissionResult.granted === false) {
-      alert("You've refused to allow this app to access your photos!");
-      return;
-    }
-    // Open the image picker
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
+      Alert.alert(
+        "권한 필요",
+        "사진을 선택하려면 권한이 필요합니다. \n사진 권한을 모두 허용으로 설정해 주세요.",
+        [
+          { text: "취소", style: "cancel" },
+          { text: "설정으로 가기", onPress: () => Linking.openSettings() },
+        ]
+      );
+    } else {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        setSelectedImage(result.assets[0].uri);
+      }
     }
   };
 
