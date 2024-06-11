@@ -1,44 +1,40 @@
 import Header from "@/components/ui/Header";
+import IconButton from "@/components/ui/IconButton";
 import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
 import { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TestScreen() {
-  const slideModalRef = useRef<SlideModalRefType>(null);
-
   const [userInput, setUserInput] = useState({
-    name: "",
-    password: "",
-    disabled: "",
+    q1: "",
   });
 
-  const handlePress = () => {
-    // 컨트롤러의 show 메서드로 모달 표시
-    slideModalRef.current?.show();
+  const handlePressMenu = (name: string, value: string) => {
+    setUserInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleChangeText = (name: string, text: string) => {
-    setUserInput((prev) => ({ ...prev, [name]: text }));
-  };
+  console.log(userInput);
 
   return (
-    <View style={styles.screen}>
-      <Header
-        left={<Text>left</Text>}
-        title="Discover"
-        subTitle="Chicago, IL"
-        right={<Text>right</Text>}
-      />
-      <View style={{ backgroundColor: "yellow", width: "100%", height: 700 }} />
-      <Pressable onPress={handlePress}>
-        <Text>open</Text>
-      </Pressable>
-
-      <SlideModal ref={slideModalRef}>
-        <Text style={{ height: 300 }}>test</Text>
-      </SlideModal>
-    </View>
+    <Header
+      // left={<IconButton onPress={() => {}} />}
+      title="Discover"
+      subTitle="Chicago, IL"
+      right={<Text>right</Text>}
+    >
+      <View style={styles.screen}>
+        <View
+          style={{ backgroundColor: "yellow", width: "100%", height: 700 }}
+        />
+        <Pressable onPress={() => {}}>
+          <Text>open</Text>
+        </Pressable>
+      </View>
+    </Header>
   );
 }
 
@@ -48,6 +44,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    padding: 20,
+    padding: 40,
   },
 });
