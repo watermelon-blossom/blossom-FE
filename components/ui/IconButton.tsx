@@ -13,7 +13,7 @@ type IconButtonProps = PressableProps & {
   iconColor?: string;
   buttonSize?: number;
   disabled?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 export default function IconButton({
