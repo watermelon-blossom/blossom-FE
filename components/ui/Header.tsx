@@ -1,34 +1,47 @@
-import { colors, gray, theme } from "@/constants/colors";
+import { gray, theme } from "@/constants/colors";
 import { fontSize } from "@/constants/font";
 import { wScale } from "@/util/responsive.util";
 import React from "react";
-import { Dimensions, StyleSheet, Text, TextStyle, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 
 type HeaderProps = {
   left?: React.ReactNode;
   right?: React.ReactNode;
   title?: React.ReactNode | string;
   subTitle?: React.ReactNode | string;
+  style?: ViewStyle;
   titleStyle?: TextStyle;
   subTitleStyle?: TextStyle;
+  leftStyle?: ViewStyle;
+  rightStyle?: ViewStyle;
+  centerStyle?: ViewStyle;
   isTitleLeft?: boolean;
-  children: React.ReactNode;
 };
 
 export default function Header({
   left,
   right,
   title,
+  style,
   subTitle,
   titleStyle,
+  leftStyle,
+  rightStyle,
+  centerStyle,
   subTitleStyle,
   isTitleLeft = false,
-  children,
 }: HeaderProps) {
   return (
     <>
-      <View style={[styles.container]}>
-        <View style={styles.left}>
+      <View style={[styles.container, style]}>
+        <View style={leftStyle}>
           {isTitleLeft ? (
             <Center
               title={title}
@@ -40,7 +53,7 @@ export default function Header({
             left
           )}
         </View>
-        <View style={styles.center}>
+        <View style={centerStyle}>
           {!isTitleLeft && (
             <Center
               title={title}
@@ -50,10 +63,8 @@ export default function Header({
             />
           )}
         </View>
-        <View style={styles.right}>{right}</View>
+        <View style={rightStyle}>{right}</View>
       </View>
-      <View />
-      {children}
     </>
   );
 }
@@ -76,48 +87,41 @@ const Center = ({
   return (
     <View style={styles.titleWrapper}>
       <Text style={[styles.titleText, titleStyle]}>{title}</Text>
-      {(isTitleLeft || subTitle) && (
-        <Text style={[styles.subTitleText, subTitleStyle]}>{subTitle}</Text>
-      )}
+      <Text style={[styles.subTitleText, subTitleStyle]}>
+        {isTitleLeft || subTitle ? subTitle : ""}
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: 0,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     width: Dimensions.get("window").width,
     height: wScale(80),
-    padding: wScale(20),
     paddingHorizontal: wScale(30),
+    paddingTop: wScale(20),
     paddingBottom: wScale(10),
-    backgroundColor: theme.secondary,
-    zIndex: 3999,
+    backgroundColor: theme.white,
+    zIndex: 3000,
   },
-  placeholder: {
-    width: Dimensions.get("window").width,
-    height: wScale(80),
-  },
-  left: {},
-  right: {},
-  center: {},
   titleWrapper: {
     alignItems: "center",
     gap: wScale(0),
   },
   titleText: {
+    color: theme.black,
     fontFamily: "BM",
     fontSize: fontSize.xl,
     fontWeight: "bold",
-    color: theme.black,
+    marginTop: wScale(10),
   },
   subTitleText: {
-    fontFamily: "BM",
-    fontSize: fontSize.sm,
+    height: wScale(14),
     color: gray[300],
+    fontFamily: "BM",
+    fontSize: fontSize.xs,
   },
 });
