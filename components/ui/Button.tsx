@@ -21,7 +21,7 @@ export default function Button({
   disabled = false,
   isHasShadow = false,
   width = "80%",
-  height = wScale(60),
+  height = wScale(58),
   onPress,
   ...props
 }: ButtonProps) {
@@ -32,7 +32,7 @@ export default function Button({
         type === "primary" && typeStyles.primaryBg,
         type === "outline" && typeStyles.outlineBg,
         { width: width as any, height: height as any },
-        disabled && { backgroundColor: colors.gray[100], borderWidth: 0 },
+        disabled && styles.disabledStyle,
         isHasShadow && layoutStyles.shadow,
         !disabled && pressed && styles.pressed,
       ]}
@@ -59,23 +59,27 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: wScale(14),
+    borderRadius: wScale(15),
     justifyContent: "center",
     alignItems: "center",
   },
   pressed: { opacity: 0.7 },
+  disabledStyle: {
+    backgroundColor: colors.gray[100],
+    borderWidth: 0,
+  },
 });
 
 const typeStyles = StyleSheet.create({
   primaryBg: {
     backgroundColor: colors.theme.primary,
-    borderWidth: wScale(0.5),
+    borderWidth: wScale(1),
     borderColor: colors.theme.primary,
   },
   primaryText: { color: colors.theme.white },
   outlineBg: {
     backgroundColor: colors.theme.white,
-    borderWidth: wScale(0.5),
+    borderWidth: wScale(1),
     borderColor: colors.gray[300],
   },
   outlineText: { color: colors.theme.black },
