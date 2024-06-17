@@ -33,7 +33,7 @@ export default function RootLayout() {
         <Stack screenOptions={{ contentStyle: { backgroundColor: "white" } }}>
           <Stack.Screen name="index" options={{ headerTitle: "Test Screen" }} />
           <Stack.Screen name="hyunwooTest" />
-          <Stack.Screen name="siwonTest" />
+          <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </SafeAreaProvider>
