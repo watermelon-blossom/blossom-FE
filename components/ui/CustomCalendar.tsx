@@ -7,15 +7,14 @@ import { theme } from "@/constants/colors";
 import CustomCalendarHeader from "./CustomCalendarHeader";
 import moment, { Moment } from "moment";
 import CText from "./CText";
-import { font } from "@/constants/font";
 
 type CustomCalendarProps = {
-  size?: string;
+  onDaySelect: (date: Moment) => void;
 };
 
-export default function CustomCalendar({ size }: CustomCalendarProps) {
+export default function CustomCalendar({ onDaySelect }: CustomCalendarProps) {
   const [selected, setSelected] = useState("2024-06-12");
-  const [currentMonth, setCurrentMonth] = useState<Moment>(moment());
+  const [currentMonth, setCurrentMonth] = useState("2024-06-12");
 
   const marked = useMemo(
     () => ({
@@ -27,23 +26,23 @@ export default function CustomCalendar({ size }: CustomCalendarProps) {
     }),
     [selected]
   );
-  function customHeader(date: any) {
-    const month = moment(date.dateString || date);
+
+  const handleChangeDate = (date: Date) => {
+    setCurrentMonth(moment(date).format("YYYY-MM-DD"));
+  };
+
+  function customHeader(month: string) {
     return (
-      <CustomCalendarHeader month={month} onDateChange={handleSelectDate} />
+      <CustomCalendarHeader
+        month={moment(month)}
+        onDateChange={handleChangeDate}
+      />
     );
   }
 
-  const handleSelectDate = (date: Date) => {
-    setSelected(moment(date).format("YYYY-MM-DD"));
-    setCurrentMonth(moment(date));
-    console.log("calendar", currentMonth.format("YYYY-MM-DD"));
-    // props.onDaySelect && props.onDaySelect(date);
-  };
-
   return (
     <View style={styles.screen}>
-      <CText color={theme.black} size="md">
+      <CText color={theme.black} size="sm">
         생년월일
       </CText>
       <Calendar
@@ -56,22 +55,27 @@ export default function CustomCalendar({ size }: CustomCalendarProps) {
           calendarBackground: theme.white,
           arrowColor: theme.black,
           todayTextColor: theme.black,
-          textDayFontFamily: font.family.BM,
+          dayTextColor: theme.black,
+          textDayFontWeight: "bold",
         }}
         hideExtraDays={true}
         hideDayNames={true}
-        current={selected}
+        current={currentMonth}
+        key={currentMonth}
         onMonthChange={(month) => {
-          setCurrentMonth(moment(month));
+          console.log(month.dateString);
+          setCurrentMonth(month.dateString);
         }}
         markedDates={marked}
         onDayPress={(day) => {
           setSelected(day.dateString);
-          // props.onDaySelect && props.onDaySelect(day);
         }}
         customHeaderTitle={customHeader(currentMonth)}
       />
-      <Button width="100%">Save</Button>
+      <Button width="100%" onPress={() => onDaySelect(moment(selected))}>
+        저장
+      </Button>
+      <View style={{ height: wScale(20) }} />
     </View>
   );
 }
@@ -80,8 +84,5 @@ const styles = StyleSheet.create({
   screen: {
     justifyContent: "center",
     alignItems: "center",
-  },
-  header: {
-    flexDirection: "row",
   },
 });

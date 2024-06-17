@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Pressable,
-  Modal,
-  Platform,
-} from "react-native";
-import moment, { Moment } from "moment";
+import { View, StyleSheet, Pressable, Modal } from "react-native";
+import { Moment } from "moment";
 import { theme } from "@/constants/colors";
 import CText from "./CText";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
+import { font } from "@/constants/font";
+import { wScale } from "@/util/responsive.util";
+import { Picker } from "@react-native-picker/picker";
+import Button from "./Button";
 
 type CustomCalendarHeaderProps = {
   month: Moment;
@@ -24,13 +20,21 @@ export default function CustomCalendarHeader({
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(month.toDate());
 
-  const handlePressButton = () => {
-    setShow(!show);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const years = Array.from(
+    { length: 100 },
+    (_, i) => new Date().getFullYear() - i
+  );
+
+  const handleChange = (type: "month" | "year", value: number) => {
+    const newDate = new Date(date);
+    if (type === "month") newDate.setMonth(value - 1);
+    if (type === "year") newDate.setFullYear(value);
+    setDate(newDate);
   };
 
-  const onChange = (event: any, selectedDate: Date | undefined) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
+  const handlePressButton = () => {
+    setShow(!show);
   };
 
   return (
@@ -43,86 +47,91 @@ export default function CustomCalendarHeader({
           {month.format("MMMM")}
         </CText>
       </Pressable>
-
-      {Platform.OS === "ios" && show && (
-        <Modal
-          transparent={true}
-          animationType="slide"
-          visible={show}
-          onRequestClose={() => setShow(false)}
-        >
-          <View style={styles.modalBackground}>
+      {show && (
+        <View style={styles.container}>
+          <Modal visible={show} transparent={true} animationType="slide">
             <View style={styles.modalContainer}>
-              <RNDateTimePicker
-                value={month.toDate()}
-                mode="date"
-                display="spinner"
-                onChange={onChange}
-                style={styles.datePicker}
-              />
-              <TouchableOpacity
-                onPress={() => {
-                  setShow(false);
-                  console.log(moment(date).format("yyyy-MM-DD"));
-                  onDateChange(date);
-                }}
-                style={styles.doneButton}
-              >
-                <CText style={styles.doneButtonText}>Done</CText>
-              </TouchableOpacity>
+              <View style={styles.pickerContainer}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Picker
+                    selectedValue={date.getMonth() + 1}
+                    onValueChange={(value: any) => handleChange("month", value)}
+                    style={styles.picker}
+                    mode="dropdown"
+                  >
+                    {months.map((month) => (
+                      <Picker.Item
+                        key={month}
+                        label={`${month}`}
+                        value={month}
+                      />
+                    ))}
+                  </Picker>
+                  <Picker
+                    selectedValue={date.getFullYear()}
+                    onValueChange={(value: any) => handleChange("year", value)}
+                    style={styles.picker}
+                    mode="dropdown"
+                  >
+                    {years.map((year) => (
+                      <Picker.Item key={year} label={`${year}`} value={year} />
+                    ))}
+                  </Picker>
+                </View>
+                <Button
+                  width="30%"
+                  height={wScale(50)}
+                  onPress={() => {
+                    setShow(false);
+                    onDateChange(date);
+                  }}
+                >
+                  확인
+                </Button>
+              </View>
             </View>
-          </View>
-        </Modal>
-      )}
-      {Platform.OS === "android" && show && (
-        <RNDateTimePicker
-          value={month.toDate()}
-          mode="date"
-          is24Hour={true}
-          display="spinner"
-          onChange={(event, selectedDate) => {
-            setShow(false);
-            onChange(event, selectedDate);
-            onDateChange(date);
-          }}
-          style={styles.datePicker}
-        />
+          </Modal>
+        </View>
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: theme.white,
-  },
-  modalBackground: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  headerContainer: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: wScale(10),
+    backgroundColor: theme.white,
   },
   modalContainer: {
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  pickerContainer: {
+    backgroundColor: theme.white,
+    borderRadius: wScale(10),
+    width: "80%",
+    padding: wScale(20),
     alignItems: "center",
   },
-  datePicker: {
-    width: "100%",
-    backgroundColor: "white",
+  picker: {
+    flex: 1,
   },
-  doneButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: theme.primary,
-    borderRadius: 5,
-  },
-  doneButtonText: {
-    color: "white",
-    fontWeight: "bold",
+  closeButtonText: {
+    color: theme.primary,
+    fontSize: font.size.sm,
   },
 });
