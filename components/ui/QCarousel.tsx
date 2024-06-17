@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  ImageSourcePropType,
-  Image,
-} from "react-native";
+import { View, StyleSheet, ImageSourcePropType, Image } from "react-native";
 import Animated, {
   SharedValue,
   interpolate,
@@ -52,7 +46,7 @@ const QCarousel = React.forwardRef<ICarouselInstance, QCarouselProps>(
     };
 
     return (
-      <View style={[styles.container, { width, height }]}>
+      <View style={[{ width, height }]}>
         <ReCarousel
           ref={ref}
           data={data}
@@ -60,13 +54,13 @@ const QCarousel = React.forwardRef<ICarouselInstance, QCarouselProps>(
           height={height}
           defaultIndex={defaultIndex}
           onScrollBegin={() => {
-            pressAnimation.value = withTiming(1, { duration: 500 });
+            pressAnimation.value = withTiming(1, { duration: 300 });
           }}
           onScrollEnd={() => {
             pressAnimation.value = withTiming(0, { duration: 300 });
           }}
           onSnapToItem={onChangeSlide}
-          scrollAnimationDuration={1500}
+          scrollAnimationDuration={1000}
           customAnimation={animationStyle}
           overscrollEnabled={false}
           snapEnabled={false}
@@ -85,10 +79,6 @@ const QCarousel = React.forwardRef<ICarouselInstance, QCarouselProps>(
 );
 
 export default QCarousel;
-
-const styles = StyleSheet.create({
-  container: {},
-});
 
 export type CarouselItemProps = {
   pressAnimation: SharedValue<number>;

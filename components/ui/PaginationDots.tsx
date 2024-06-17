@@ -7,6 +7,7 @@ type PaginationDotsProps = {
   currentIndex: number;
   style?: ViewStyle;
   dotStyle?: ViewStyle;
+  activeDotStyle?: ViewStyle;
 };
 
 export default function PaginationDots({
@@ -14,6 +15,7 @@ export default function PaginationDots({
   currentIndex,
   style,
   dotStyle,
+  activeDotStyle,
 }: PaginationDotsProps) {
   return (
     <View style={[styles.container, style]}>
@@ -22,6 +24,7 @@ export default function PaginationDots({
           key={index}
           isActive={index === currentIndex}
           dotStyle={dotStyle}
+          activeDotStyle={activeDotStyle}
         />
       ))}
     </View>
@@ -31,10 +34,13 @@ export default function PaginationDots({
 type DotProps = {
   isActive: boolean;
   dotStyle?: ViewStyle;
+  activeDotStyle?: ViewStyle;
 };
 
-const Dot = ({ isActive, dotStyle }: DotProps) => (
-  <View style={[styles.dot, isActive && styles.active, dotStyle]} />
+const Dot = ({ isActive, dotStyle, activeDotStyle }: DotProps) => (
+  <View
+    style={[styles.dot, isActive && [styles.active, activeDotStyle], dotStyle]}
+  />
 );
 
 const styles = StyleSheet.create({

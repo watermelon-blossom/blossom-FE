@@ -40,7 +40,11 @@ export default function TestScreen() {
           setCurrentIdx(idx);
         }}
       />
-      <PaginationDots totalItems={DATA.length} currentIndex={currentIdx} />
+      <PaginationDots
+        totalItems={DATA.length}
+        currentIndex={currentIdx}
+        activeDotStyle={{ backgroundColor: "yellow" }}
+      />
       <Button onPress={handlePrevSlide}>Prev</Button>
       <Button onPress={handleNextSlide}>Next</Button>
     </View>
@@ -53,11 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-<<<<<<< HEAD
     padding: 20,
     backgroundColor: theme.contrast,
-=======
-    backgroundColor: "yellowgreen",
->>>>>>> develop
   },
 });
