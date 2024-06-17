@@ -16,6 +16,7 @@ export default function CText({
   color = theme.black,
   textBreakStrategy = "highQuality",
   lineBreakStrategyIOS = "hangul-word",
+  style,
   ...props
 }: cTextProps) {
   return (
@@ -26,6 +27,7 @@ export default function CText({
           fontFamily: font.family.BM,
           color: color,
         },
+        style,
       ]}
       {...{ textBreakStrategy }}
       {...{ lineBreakStrategyIOS }}

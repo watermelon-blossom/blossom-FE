@@ -21,7 +21,7 @@ export default function Button({
   disabled = false,
   isHasShadow = false,
   width = "80%",
-  height = wScale(60),
+  height = wScale(58),
   onPress,
   ...props
 }: ButtonProps) {
@@ -59,7 +59,7 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: wScale(14),
+    borderRadius: wScale(15),
     justifyContent: "center",
     alignItems: "center",
   },
@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
 const typeStyles = StyleSheet.create({
   primaryBg: {
     backgroundColor: colors.theme.primary,
-    borderWidth: wScale(0.5),
+    borderWidth: wScale(1),
     borderColor: colors.theme.primary,
   },
   primaryText: { color: colors.theme.white },
   outlineBg: {
     backgroundColor: colors.theme.white,
-    borderWidth: wScale(0.5),
+    borderWidth: wScale(1),
     borderColor: colors.gray[300],
   },
   outlineText: { color: colors.theme.black },

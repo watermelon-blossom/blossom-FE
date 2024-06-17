@@ -4,6 +4,7 @@ import { SvgProps } from "react-native-svg";
 
 import * as Icons from "@/assets/Icons/index";
 import { colors } from "@/constants/colors";
+import { wScale } from "@/util/responsive.util";
 
 type IconProps = SvgProps & {
   name: keyof typeof Icons;
@@ -13,7 +14,7 @@ type IconProps = SvgProps & {
 export default function SvgIcon({
   name,
   fill = colors.theme.primary,
-  size,
+  size = wScale(16),
   ...props
 }: IconProps) {
   const Comp = Icons[name];
