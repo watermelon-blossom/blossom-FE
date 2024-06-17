@@ -53,7 +53,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
+<<<<<<< HEAD
     padding: 20,
     backgroundColor: theme.contrast,
+=======
+    backgroundColor: "yellowgreen",
+>>>>>>> develop
   },
 });
