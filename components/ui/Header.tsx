@@ -107,15 +107,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.white,
     zIndex: 3000,
   },
-  titleWrapper: {
-    alignItems: "center",
-    gap: wScale(0),
-  },
+  titleWrapper: { alignItems: "center" },
   titleText: {
     color: theme.black,
     fontFamily: "BM",
     fontSize: fontSize.xl,
-    fontWeight: "bold",
     marginTop: wScale(10),
   },
   subTitleText: {
