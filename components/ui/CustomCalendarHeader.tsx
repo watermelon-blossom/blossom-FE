@@ -60,7 +60,7 @@ export default function CustomCalendarHeader({
                   selectedValue={date.getMonth() + 1}
                   onValueChange={(value: any) => handleChange("month", value)}
                   style={styles.picker}
-                  itemStyle={{ height: wScale(150) }}
+                  itemStyle={{ height: wScale(110) }}
                   mode="dialog"
                 >
                   {months.map((month) => (
@@ -71,7 +71,7 @@ export default function CustomCalendarHeader({
                   selectedValue={date.getFullYear()}
                   onValueChange={(value: any) => handleChange("year", value)}
                   style={styles.picker}
-                  itemStyle={{ height: wScale(150) }}
+                  itemStyle={{ height: wScale(110) }}
                   mode="dialog"
                 >
                   {years.map((year) => (
