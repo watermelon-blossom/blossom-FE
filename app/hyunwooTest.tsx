@@ -2,11 +2,12 @@ import CustomCalendar from "@/components/ui/CustomCalendar";
 import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
 import { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Moment } from "moment";
+import moment, { Moment } from "moment";
 import CText from "@/components/ui/CText";
+import { theme } from "@/constants/colors";
 
 export default function TestScreen() {
-  const [selectDay, setSelectDay] = useState("");
+  const [selectDay, setSelectDay] = useState(moment().format("yyyy-MM-DD"));
   const slideModalRef = useRef<SlideModalRefType>(null);
 
   const handlePressButton = () => {
@@ -26,7 +27,11 @@ export default function TestScreen() {
       <CText size="2xl">{selectDay}</CText>
 
       <SlideModal ref={slideModalRef}>
-        <CustomCalendar onDaySelect={handleSelectDate} />
+        <CustomCalendar initialDate={selectDay} onDaySelect={handleSelectDate}>
+          <CText color={theme.black} size="sm">
+            생년월일
+          </CText>
+        </CustomCalendar>
       </SlideModal>
     </View>
   );

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Pressable, Modal } from "react-native";
+import { View, StyleSheet, Pressable, Modal, Dimensions } from "react-native";
 import { Moment } from "moment";
 import { theme } from "@/constants/colors";
 import CText from "./CText";
-import { font } from "@/constants/font";
 import { wScale } from "@/util/responsive.util";
 import { Picker } from "@react-native-picker/picker";
 import Button from "./Button";
@@ -50,50 +49,46 @@ export default function CustomCalendarHeader({
       {show && (
         <View style={styles.container}>
           <Modal visible={show} transparent={true} animationType="slide">
-            <View style={styles.modalContainer}>
-              <View style={styles.pickerContainer}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
+            <View style={styles.pickerContainer}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Picker
+                  selectedValue={date.getMonth() + 1}
+                  onValueChange={(value: any) => handleChange("month", value)}
+                  style={styles.picker}
+                  itemStyle={{ height: wScale(150) }}
+                  mode="dialog"
                 >
-                  <Picker
-                    selectedValue={date.getMonth() + 1}
-                    onValueChange={(value: any) => handleChange("month", value)}
-                    style={styles.picker}
-                    mode="dropdown"
-                  >
-                    {months.map((month) => (
-                      <Picker.Item
-                        key={month}
-                        label={`${month}`}
-                        value={month}
-                      />
-                    ))}
-                  </Picker>
-                  <Picker
-                    selectedValue={date.getFullYear()}
-                    onValueChange={(value: any) => handleChange("year", value)}
-                    style={styles.picker}
-                    mode="dropdown"
-                  >
-                    {years.map((year) => (
-                      <Picker.Item key={year} label={`${year}`} value={year} />
-                    ))}
-                  </Picker>
-                </View>
-                <Button
-                  width="30%"
-                  height={wScale(50)}
-                  onPress={() => {
-                    setShow(false);
-                    onDateChange(date);
-                  }}
+                  {months.map((month) => (
+                    <Picker.Item key={month} label={`${month}`} value={month} />
+                  ))}
+                </Picker>
+                <Picker
+                  selectedValue={date.getFullYear()}
+                  onValueChange={(value: any) => handleChange("year", value)}
+                  style={styles.picker}
+                  itemStyle={{ height: wScale(150) }}
+                  mode="dialog"
                 >
-                  확인
-                </Button>
+                  {years.map((year) => (
+                    <Picker.Item key={year} label={`${year}`} value={year} />
+                  ))}
+                </Picker>
               </View>
+              <Button
+                width="30%"
+                height={wScale(50)}
+                onPress={() => {
+                  setShow(false);
+                  onDateChange(date);
+                }}
+              >
+                확인
+              </Button>
             </View>
           </Modal>
         </View>
@@ -114,24 +109,18 @@ const styles = StyleSheet.create({
     padding: wScale(10),
     backgroundColor: theme.white,
   },
-  modalContainer: {
-    flex: 1,
+  pickerContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
-  },
-  pickerContainer: {
+    position: "absolute",
+    bottom: wScale(520),
+    left: Dimensions.get("window").width * 0.1,
     backgroundColor: theme.white,
     borderRadius: wScale(10),
     width: "80%",
-    padding: wScale(20),
-    alignItems: "center",
+    padding: wScale(10),
   },
   picker: {
     flex: 1,
-  },
-  closeButtonText: {
-    color: theme.primary,
-    fontSize: font.size.sm,
   },
 });
