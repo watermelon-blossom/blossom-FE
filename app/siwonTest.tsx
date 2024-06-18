@@ -1,35 +1,52 @@
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import RadioButton, { RadioButtonMenu } from "@/components/ui/RadioButton";
+import Button from "@/components/ui/Button";
+import PaginationDots from "@/components/ui/PaginationDots";
+import React, { useRef, useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { theme } from "@/constants/colors";
 
-const RADIO_BUTTON_MENUS: RadioButtonMenu[] = [
-  { label: "실내 데이트", value: "inside" },
-  { label: "실외 데이트", value: "ouside" },
-  { label: "실내와 실외 그 사이 어딘가", value: "somewhere" },
+import QCarousel, { QCarouselDataProp } from "@/components/ui/QCarousel";
+import { ICarouselInstance } from "react-native-reanimated-carousel";
+
+const DATA: QCarouselDataProp = [
+  require("../assets/images/test1.png"),
+  require("../assets/images/test2.png"),
+  require("../assets/images/test3.png"),
 ];
 
-export default function TestScreen() {
-  const [userInput, setUserInput] = useState({
-    q1: "",
-  });
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-  const handlePressMenu = (name: string, value: string) => {
-    setUserInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+export default function TestScreen() {
+  const carouselRef = useRef<ICarouselInstance>(null);
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  const handleNextSlide = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.next();
   };
 
-  console.log(userInput);
+  const handlePrevSlide = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.prev();
+  };
 
   return (
     <View style={styles.screen}>
-      <RadioButton
-        menus={RADIO_BUTTON_MENUS}
-        name="q1"
-        value={userInput.q1}
-        onSelectMenu={handlePressMenu}
+      <QCarousel
+        ref={carouselRef}
+        data={DATA}
+        width={SCREEN_WIDTH * 0.9}
+        height={SCREEN_HEIGHT * 0.6}
+        onChangeSlide={(idx) => {
+          setCurrentIdx(idx);
+        }}
       />
+      <PaginationDots
+        totalItems={DATA.length}
+        currentIndex={currentIdx}
+        activeDotStyle={{ backgroundColor: "yellow" }}
+      />
+      <Button onPress={handlePrevSlide}>Prev</Button>
+      <Button onPress={handleNextSlide}>Next</Button>
     </View>
   );
 }
@@ -40,6 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    padding: 40,
+    padding: 20,
+    backgroundColor: theme.contrast,
   },
 });
