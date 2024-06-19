@@ -30,8 +30,14 @@ export default function RootLayout() {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <SafeAreaProvider>
-        <Stack screenOptions={{ contentStyle: { backgroundColor: "white" } }}>
-          <Stack.Screen name="index" options={{ headerTitle: "Test Screen" }} />
+        <Stack
+          screenOptions={{
+            contentStyle: { backgroundColor: "white" },
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="index" />
           <Stack.Screen name="hyunwooTest" />
           <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />

@@ -23,6 +23,7 @@ export const systemColor = {
 export const theme = {
   black: "#000000",
   white: "#FFFFFF",
+  gray: "#F3F3F3",
   primary: "#F77270",
   secondary: "#FFF4F2",
   contrast: "#A088FF",
