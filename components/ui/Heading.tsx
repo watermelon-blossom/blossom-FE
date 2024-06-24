@@ -8,10 +8,15 @@ type HeadingProps = TextProps & {
   level: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
-export default function Heading({ children, level, ...props }: HeadingProps) {
+export default function Heading({
+  children,
+  level,
+  style,
+  ...props
+}: HeadingProps) {
   return (
     <Text
-      style={[styles[`h${level}`], { fontFamily: font.family.BM }]}
+      style={[styles[`h${level}`], { fontFamily: font.family.BM }, style]}
       {...props}
     >
       {children}

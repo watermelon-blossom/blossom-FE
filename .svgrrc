@@ -1,5 +1,5 @@
 {
-  "svgProps": {
-    "fill": "{props.fill}"
+  "replaceAttrValues": {
+    "#F77270": "{props.fill}"
   }
 }
