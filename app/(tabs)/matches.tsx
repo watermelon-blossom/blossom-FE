@@ -1,19 +1,11 @@
+import { StyleSheet, View } from "react-native";
 import CText from "@/components/ui/CText";
-import Header from "@/components/ui/Header";
-import IconButton from "@/components/ui/IconButton";
-import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function matches() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Header
-        title="Matches"
-        right={<IconButton iconName="sort" iconColor="green" />}
-        isTitleLeft
-      />
+    <View style={styles.container}>
       <CText>Matches</CText>
-    </SafeAreaView>
+    </View>
   );
 }
 
