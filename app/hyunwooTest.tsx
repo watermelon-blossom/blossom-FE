@@ -49,18 +49,26 @@ export default function TestScreen() {
   const handleLeftSwipe = () => {
     if (currentIndex < cardData.length) {
       direction[currentIndex].value = -1;
-      translateX[currentIndex].value = withTiming(-width, {}, () => {
-        runOnJS(setCurrentIndex)(currentIndex + 1);
-      });
+      translateX[currentIndex].value = withTiming(
+        -width,
+        { duration: 500 },
+        () => {
+          runOnJS(setCurrentIndex)(currentIndex + 1);
+        }
+      );
       animatedValue.value = withTiming(currentIndex + 1);
     }
   };
   const handleRightSwipe = () => {
     if (currentIndex < cardData.length) {
       direction[currentIndex].value = 1;
-      translateX[currentIndex].value = withTiming(width, {}, () => {
-        runOnJS(setCurrentIndex)(currentIndex + 1);
-      });
+      translateX[currentIndex].value = withTiming(
+        width,
+        { duration: 500 },
+        () => {
+          runOnJS(setCurrentIndex)(currentIndex + 1);
+        }
+      );
       animatedValue.value = withTiming(currentIndex + 1);
     }
   };
