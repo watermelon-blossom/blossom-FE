@@ -3,6 +3,7 @@ import {
   Image,
   ImageSourcePropType,
   StyleSheet,
+  View,
   useWindowDimensions,
 } from "react-native";
 import { theme } from "@/constants/colors";
@@ -15,6 +16,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import Button from "./Button";
 
 export type CARD_DATA = {
   item: {
@@ -23,7 +25,7 @@ export type CARD_DATA = {
   };
 };
 
-type CardProps = {
+type SwipeProps = {
   item: { title: string; image: ImageSourcePropType };
   index: number;
   dataLength: number;
@@ -33,7 +35,7 @@ type CardProps = {
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function Card({
+export default function SwipeAnimation({
   item,
   index,
   dataLength,
@@ -41,7 +43,7 @@ export default function Card({
   currentIndex,
   animatedValue,
   setCurrentIndex,
-}: CardProps) {
+}: SwipeProps) {
   const { width } = useWindowDimensions();
   const translateX = useSharedValue(0);
   const direction = useSharedValue(0);
@@ -83,7 +85,7 @@ export default function Card({
     const translateY = interpolate(
       animatedValue.value,
       [index - 1, index],
-      [-30, 0]
+      [-60, 0]
     );
     const scale = interpolate(
       animatedValue.value,

@@ -1,13 +1,18 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Card, { CARD_DATA } from "@/components/ui/Card";
+import { CARD_DATA } from "@/components/ui/SwipeAnimation";
 import { theme } from "@/constants/colors";
-import IconButton from "@/components/ui/IconButton";
-import SvgIcon from "@/components/ui/SvgIcon";
-import Icon from "@/assets/Icons/back.svg";
 import { useState } from "react";
-import { useSharedValue } from "react-native-reanimated";
+import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
+import Button from "@/components/ui/Button";
+import SwipeAnimation from "@/components/ui/SwipeAnimation";
 
 const cardData: CARD_DATA[] = [
   {
@@ -23,8 +28,18 @@ const cardData: CARD_DATA[] = [
 export default function TestScreen() {
   // const [newData, setNewData] = useState([...data, ...data])
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { width } = useWindowDimensions();
+  const direction = useSharedValue(0);
   const animatedValue = useSharedValue(0);
-  const MAX = 3;
+  const translateX = useSharedValue(0);
+  const MAX = 2;
+
+  const handleSwipeRightButton = () => {
+    translateX.value = withTiming(width * 1, {}, () => {
+      runOnJS(setCurrentIndex)(currentIndex + 1);
+    });
+    animatedValue.value = withTiming(currentIndex + 1);
+  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={styles.screen}>
@@ -34,7 +49,7 @@ export default function TestScreen() {
               return null;
             }
             return (
-              <Card
+              <SwipeAnimation
                 item={data.item}
                 index={index}
                 key={index}
@@ -43,10 +58,11 @@ export default function TestScreen() {
                 currentIndex={currentIndex}
                 animatedValue={animatedValue}
                 setCurrentIndex={setCurrentIndex}
-              ></Card>
+              />
             );
           })}
         </View>
+        <Button onPress={handleSwipeRightButton}>swipe</Button>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
