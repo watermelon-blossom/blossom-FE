@@ -1,11 +1,5 @@
 import { wScale } from "@/util/responsive.util";
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import { theme } from "@/constants/colors";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -16,37 +10,31 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import Button from "./Button";
-
-export type CARD_DATA = {
-  item: {
-    title: string;
-    image: ImageSourcePropType;
-  };
-};
 
 type SwipeProps = {
-  item: { title: string; image: ImageSourcePropType };
+  children: React.ReactNode;
   index: number;
   dataLength: number;
-  maxVisibleItem: number;
+  maxVisibleItem?: number;
+  translateX?: SharedValue<number>;
+  direction?: SharedValue<number>;
   currentIndex: number;
   animatedValue: SharedValue<number>;
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function SwipeAnimation({
-  item,
+  children,
   index,
   dataLength,
-  maxVisibleItem,
+  maxVisibleItem = 2,
+  translateX = useSharedValue(0),
+  direction = useSharedValue(0),
   currentIndex,
   animatedValue,
   setCurrentIndex,
 }: SwipeProps) {
   const { width } = useWindowDimensions();
-  const translateX = useSharedValue(0);
-  const direction = useSharedValue(0);
   const pan = Gesture.Pan()
     .onUpdate((e) => {
       const isSwipeRight = e.translationX > 0;
@@ -85,7 +73,7 @@ export default function SwipeAnimation({
     const translateY = interpolate(
       animatedValue.value,
       [index - 1, index],
-      [-60, 0]
+      [-40, 0]
     );
     const scale = interpolate(
       animatedValue.value,
@@ -128,7 +116,7 @@ export default function SwipeAnimation({
           animatedStyle,
         ]}
       >
-        <Image source={item.image} style={styles.image} />
+        {children}
       </Animated.View>
     </GestureDetector>
   );
@@ -142,6 +130,4 @@ const styles = StyleSheet.create({
     borderRadius: wScale(20),
     backgroundColor: theme.primary,
   },
-  imageContainer: { width: wScale(295), height: wScale(450) },
-  image: { width: "100%", height: "100%", borderRadius: wScale(20) },
 });
