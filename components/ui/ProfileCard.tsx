@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { View, StyleSheet, ImageSourcePropType, Image } from "react-native";
 import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 import ReCarousel, {
@@ -13,7 +13,6 @@ import PaginationDots from "./PaginationDots";
 import SvgIcon from "./SvgIcon";
 import { BlurView } from "expo-blur";
 
-export type ProfileCardDataProp = ImageSourcePropType[];
 export type Profile = {
   name: string;
   age: number;
@@ -23,10 +22,9 @@ export type Profile = {
 
 type ProfileCardProps = {
   profile: Profile;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   defaultIndex?: number;
-  onChangeSlide?: (index: number) => void;
 };
 
 type RenderItemParams = {
@@ -35,14 +33,18 @@ type RenderItemParams = {
 };
 
 const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
-  ({ profile, width, height, defaultIndex, onChangeSlide }, ref) => {
+  (
+    { profile, width = wScale(295), height = wScale(450), defaultIndex = 0 },
+    ref
+  ) => {
+    const carouselRef = useRef<ICarouselInstance>(null);
     const pressAnimation = useSharedValue(0);
-    const [currentIdx, setCurrentIdx] = useState(0);
+    const [currentIdx, setCurrentIdx] = useState(defaultIndex);
 
     return (
       <View style={[{ width, height }, itemStyles.container]}>
         <ReCarousel
-          ref={ref}
+          ref={carouselRef}
           data={profile.images}
           width={width}
           height={height}

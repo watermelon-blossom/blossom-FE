@@ -18,30 +18,9 @@ const profile: Profile = {
 };
 
 export default function TestScreen() {
-  const carouselRef = useRef<ICarouselInstance>(null);
-  const [currentIdx, setCurrentIdx] = useState(0);
-
-  const handleNextSlide = () => {
-    if (!carouselRef.current) return;
-    carouselRef.current.next();
-  };
-
-  const handlePrevSlide = () => {
-    if (!carouselRef.current) return;
-    carouselRef.current.prev();
-  };
-
   return (
     <View style={styles.screen}>
-      <ProfileCard
-        ref={carouselRef}
-        profile={profile}
-        width={295}
-        height={450}
-        onChangeSlide={(idx) => {
-          setCurrentIdx(idx);
-        }}
-      />
+      <ProfileCard profile={profile} />
     </View>
   );
 }
