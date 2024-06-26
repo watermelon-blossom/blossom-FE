@@ -4,4 +4,7 @@ export { default as send } from "./send.svg";
 export { default as setting } from "./setting.svg";
 export { default as sort } from "./sort.svg";
 export { default as camera } from "./camera.svg";
-export { default as people } from "./people.svg";
+export { default as discover } from "./discover.svg";
+export { default as match } from "./match.svg";
+export { default as message } from "./message.svg";
+export { default as account } from "./account.svg";
