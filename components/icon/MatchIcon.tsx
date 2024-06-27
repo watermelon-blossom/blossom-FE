@@ -1,7 +1,7 @@
 import React from "react";
 import { SvgXml } from "react-native-svg";
 import { wScale } from "@/util/responsive.util";
-import { gray, theme } from "@/constants/colors";
+import { theme } from "@/constants/colors";
 
 type MatchIconProps = {
   width?: number;

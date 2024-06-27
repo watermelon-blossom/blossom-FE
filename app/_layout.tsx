@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { KeyboardAvoidingView } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
@@ -19,6 +19,13 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  // testpage 자동 이동용
+  useEffect(() => {
+    if (loaded) {
+      router.navigate("siwonTest");
     }
   }, [loaded]);
 

@@ -8,3 +8,6 @@ export { default as discover } from "./discover.svg";
 export { default as match } from "./match.svg";
 export { default as message } from "./message.svg";
 export { default as account } from "./account.svg";
+export { default as close } from "./close.svg";
+export { default as like } from "./like.svg";
+export { default as star } from "./star.svg";
