@@ -1,37 +1,41 @@
-import Button from "@/components/ui/Button";
-import PaginationDots from "@/components/ui/PaginationDots";
 import React, { useRef, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 
-import QCarousel, { QCarouselDataProp } from "@/components/ui/QCarousel";
-import { ICarouselInstance } from "react-native-reanimated-carousel";
-import ActionButton from "@/components/ui/ActionButton";
-
-// const DATA: QCarouselDataProp = [
-//   require("../assets/images/test1.png"),
-//   require("../assets/images/test2.png"),
-//   require("../assets/images/test3.png"),
-// ];
+import DoubleSliderInput from "@/components/ui/DoubleSliderInput";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function TestScreen() {
-  const hadlePress = () => {
-    console.log("press");
+  const [userInput, setUserInput] = useState({
+    val1: [0, 50],
+    val2: [0, 30],
+  });
+
+  const hadleChangeValue = (name: string, value: number[]) => {
+    setUserInput((prev) => ({ ...prev, [name]: value }));
   };
+
+  console.log(userInput.val1);
 
   return (
     <>
       <View style={styles.screen}>
-        <ActionButton type="REJECT" onPress={hadlePress} />
-        <ActionButton type="MATCH" onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" onPress={hadlePress} />
-      </View>
-      <View style={styles.screen}>
-        <ActionButton type="REJECT" disabled onPress={hadlePress} />
-        <ActionButton type="MATCH" disabled onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" disabled onPress={hadlePress} />
+        <DoubleSliderInput
+          name="val1"
+          value={userInput.val1}
+          min={0}
+          max={100}
+          onChange={hadleChangeValue}
+        />
+        <DoubleSliderInput
+          name="val2"
+          value={userInput.val2}
+          min={0}
+          max={100}
+          disabled
+          onChange={hadleChangeValue}
+        />
       </View>
     </>
   );
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
+    // flexDirection: "row",
     gap: 20,
     padding: 20,
     backgroundColor: theme.contrast,
