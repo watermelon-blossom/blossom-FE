@@ -23,7 +23,7 @@ export default function TestScreen() {
     val2: 50,
   });
 
-  const hadleChnageValue = (name: string, value: number) => {
+  const hadleChangeValue = (name: string, value: number) => {
     setUserInput((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -36,7 +36,7 @@ export default function TestScreen() {
           value={userInput.val1}
           min={0}
           max={100}
-          onChange={hadleChnageValue}
+          onChange={hadleChangeValue}
         />
         <SingleSliderInput
           name="val2"
@@ -44,7 +44,7 @@ export default function TestScreen() {
           min={0}
           max={100}
           disabled
-          onChange={hadleChnageValue}
+          onChange={hadleChangeValue}
         />
       </View>
     </>
