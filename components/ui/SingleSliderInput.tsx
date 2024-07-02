@@ -10,8 +10,6 @@ type SliderProps = {
   value: number;
   min: number;
   max: number;
-  width?: number;
-  height?: number;
   disabled?: boolean;
   containerStyle?: ViewStyle;
   onChange: (name: string, value: number) => void;
