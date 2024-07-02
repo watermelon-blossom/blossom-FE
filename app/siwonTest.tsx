@@ -7,6 +7,7 @@ import { theme } from "@/constants/colors";
 import QCarousel, { QCarouselDataProp } from "@/components/ui/QCarousel";
 import { ICarouselInstance } from "react-native-reanimated-carousel";
 import ActionButton from "@/components/ui/ActionButton";
+import SingleSliderInput from "@/components/ui/SingleSliderInput";
 
 // const DATA: QCarouselDataProp = [
 //   require("../assets/images/test1.png"),
@@ -17,21 +18,34 @@ import ActionButton from "@/components/ui/ActionButton";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function TestScreen() {
-  const hadlePress = () => {
-    console.log("press");
+  const [userInput, setUserInput] = useState({
+    val1: 20,
+    val2: 50,
+  });
+
+  const hadleChnageValue = (name: string, value: number) => {
+    setUserInput((prev) => ({ ...prev, [name]: value }));
   };
 
+  console.log("userInput", userInput);
   return (
     <>
       <View style={styles.screen}>
-        <ActionButton type="REJECT" onPress={hadlePress} />
-        <ActionButton type="MATCH" onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" onPress={hadlePress} />
-      </View>
-      <View style={styles.screen}>
-        <ActionButton type="REJECT" disabled onPress={hadlePress} />
-        <ActionButton type="MATCH" disabled onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" disabled onPress={hadlePress} />
+        <SingleSliderInput
+          name="val1"
+          value={userInput.val1}
+          min={0}
+          max={100}
+          onChange={hadleChnageValue}
+        />
+        <SingleSliderInput
+          name="val2"
+          value={userInput.val2}
+          min={0}
+          max={100}
+          disabled
+          onChange={hadleChnageValue}
+        />
       </View>
     </>
   );
@@ -42,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
+    // flexDirection: "row",
     gap: 20,
     padding: 20,
     backgroundColor: theme.contrast,
