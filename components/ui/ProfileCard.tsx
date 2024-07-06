@@ -1,11 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, ImageSourcePropType, Image } from "react-native";
-import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 import ReCarousel, {
   ICarouselInstance,
 } from "react-native-reanimated-carousel";
 import { wScale } from "@/util/responsive.util";
-import { QCarouselDataProp } from "./QCarousel";
 import Heading from "./Heading";
 import CText from "./CText";
 import { gray, theme } from "@/constants/colors";
@@ -24,6 +22,7 @@ type ProfileCardProps = {
   profile: Profile;
   width?: number;
   height?: number;
+  distance: number;
   defaultIndex?: number;
 };
 
@@ -34,36 +33,38 @@ type RenderItemParams = {
 
 const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
   (
-    { profile, width = wScale(295), height = wScale(450), defaultIndex = 0 },
+    {
+      profile,
+      width = wScale(295),
+      height = wScale(450),
+      distance,
+      defaultIndex = 0,
+    },
     ref
   ) => {
-    const carouselRef = useRef<ICarouselInstance>(null);
-    const pressAnimation = useSharedValue(0);
     const [currentIdx, setCurrentIdx] = useState(defaultIndex);
 
     return (
       <View style={[{ width, height }, itemStyles.container]}>
         <ReCarousel
-          ref={carouselRef}
+          ref={ref}
           data={profile.images}
           width={width}
           height={height}
           vertical={true}
           defaultIndex={defaultIndex}
-          onScrollBegin={() => {
-            pressAnimation.value = withTiming(1, { duration: 300 });
-          }}
-          onScrollEnd={() => {
-            pressAnimation.value = withTiming(0, { duration: 300 });
-          }}
           onSnapToItem={(idx) => {
             setCurrentIdx(idx);
           }}
           scrollAnimationDuration={700}
           snapEnabled={false}
-          enabled
-          renderItem={({ index, item }: RenderItemParams) => (
-            <CarouselItem key={index} source={item} />
+          enabled={false}
+          renderItem={({ item }: RenderItemParams) => (
+            <Image
+              source={item}
+              resizeMode="cover"
+              style={{ width: "100%", height: "100%" }}
+            />
           )}
         />
         <BlurView intensity={30} tint="dark" style={itemStyles.locationWrapper}>
@@ -74,7 +75,7 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
               size={wScale(14)}
             />
             <CText size="xs" color={theme.white}>
-              1km
+              {distance}km
             </CText>
           </View>
         </BlurView>
@@ -106,22 +107,6 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
 
 export default ProfileCard;
 
-export type CarouselItemProps = {
-  source: ImageSourcePropType;
-};
-
-const CarouselItem = ({ source }: CarouselItemProps) => {
-  return (
-    <Animated.View style={itemStyles.imgWrapper}>
-      <Image
-        source={source}
-        resizeMode="cover"
-        style={{ width: "100%", height: "100%" }}
-      />
-    </Animated.View>
-  );
-};
-
 const itemStyles = StyleSheet.create({
   container: {
     alignContent: "center",
@@ -134,8 +119,8 @@ const itemStyles = StyleSheet.create({
     width: wScale(61),
     height: wScale(34),
     position: "absolute",
-    top: 15,
-    left: 10,
+    top: wScale(15),
+    left: wScale(10),
     borderRadius: wScale(8),
     overflow: "hidden",
     justifyContent: "center",
@@ -149,7 +134,7 @@ const itemStyles = StyleSheet.create({
   dotWrapper: {
     position: "absolute",
     top: "50%",
-    right: -5,
+    right: wScale(-5),
     transform: [{ translateY: -wScale(38) }],
     justifyContent: "center",
     alignContent: "center",
@@ -178,8 +163,5 @@ const itemStyles = StyleSheet.create({
     alignContent: "center",
     padding: wScale(16),
     gap: wScale(5),
-  },
-  title: {
-    flexDirection: "row",
   },
 });
