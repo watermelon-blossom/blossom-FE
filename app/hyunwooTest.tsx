@@ -1,38 +1,26 @@
-import CustomCalendar from "@/components/ui/CustomCalendar";
-import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
 import { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import moment, { Moment } from "moment";
-import CText from "@/components/ui/CText";
 import { theme } from "@/constants/colors";
+import ProfileCard, { Profile } from "@/components/ui/ProfileCard";
+import { ICarouselInstance } from "react-native-reanimated-carousel";
+
+const profile: Profile = {
+  name: "Jessica Parker",
+  age: 23,
+  job: "Professional model",
+  images: [
+    require("../assets/images/testPhoto1.png"),
+    require("../assets/images/testPhoto2.png"),
+    require("../assets/images/test1.png"),
+    require("../assets/images/test2.png"),
+    require("../assets/images/test3.png"),
+  ],
+};
 
 export default function TestScreen() {
-  const [selectDay, setSelectDay] = useState(moment().format("yyyy-MM-DD"));
-  const slideModalRef = useRef<SlideModalRefType>(null);
-
-  const handlePressButton = () => {
-    console.log("press");
-    slideModalRef.current?.show();
-  };
-
-  const handleSelectDate = (date: Moment) => {
-    setSelectDay(date.format("yyyy-MM-DD"));
-  };
-
   return (
     <View style={styles.screen}>
-      <Pressable onPress={handlePressButton}>
-        <Text>open</Text>
-      </Pressable>
-      <CText size="2xl">{selectDay}</CText>
-
-      <SlideModal ref={slideModalRef}>
-        <CustomCalendar initialDate={selectDay} onDaySelect={handleSelectDate}>
-          <CText color={theme.black} size="sm">
-            생년월일
-          </CText>
-        </CustomCalendar>
-      </SlideModal>
+      <ProfileCard profile={profile} />
     </View>
   );
 }
@@ -44,5 +32,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     padding: 20,
+    backgroundColor: theme.contrast,
   },
 });
