@@ -26,7 +26,7 @@ export default function RootLayout() {
   // testpage 자동 이동용
   useEffect(() => {
     if (loaded) {
-      router.navigate("matchSuccess");
+      router.navigate("hyunwooTest");
     }
   }, [loaded]);
 
