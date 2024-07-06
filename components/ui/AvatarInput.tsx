@@ -49,7 +49,7 @@ export default function AvatarInput() {
         {selectedImage ? (
           <Image source={{ uri: selectedImage }} style={styles.image} />
         ) : (
-          <SvgIcon name="people" fill={theme.white} size={wScale(70)} />
+          <SvgIcon name="account" fill={theme.white} size={wScale(70)} />
         )}
       </Pressable>
 

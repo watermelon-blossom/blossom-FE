@@ -1,4 +1,11 @@
-import { Pressable, PressableProps, StyleSheet, Text } from "react-native";
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 import { font } from "@/constants/font";
 import { colors } from "@/constants/colors";
 import { wScale } from "@/util/responsive.util";
@@ -11,6 +18,8 @@ type ButtonProps = PressableProps & {
   isHasShadow?: boolean;
   width?: string | number;
   height?: string | number;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
   onPress?: () => void;
 };
 
@@ -22,6 +31,8 @@ export default function Button({
   isHasShadow = false,
   width = "80%",
   height = wScale(58),
+  style,
+  textStyle,
   onPress,
   ...props
 }: ButtonProps) {
@@ -32,6 +43,7 @@ export default function Button({
         type === "primary" && typeStyles.primaryBg,
         type === "outline" && typeStyles.outlineBg,
         { width: width as any, height: height as any },
+        style,
         disabled && styles.disabledStyle,
         isHasShadow && layoutStyles.shadow,
         !disabled && pressed && styles.pressed,
@@ -45,6 +57,7 @@ export default function Button({
             type === "primary" && typeStyles.primaryText,
             type === "outline" && typeStyles.outlineText,
             sizeStyles[size],
+            textStyle,
             disabled && { color: colors.theme.white },
           ]}
         >
