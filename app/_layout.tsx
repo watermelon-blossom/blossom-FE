@@ -7,6 +7,7 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import CSafeAreaView from "@/components/ui/CSafeAreaView";
+import AnimationEffect from "@/components/ui/AnimationEffect";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,6 +51,7 @@ export default function RootLayout() {
             <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
+          <AnimationEffect />
         </CSafeAreaView>
       </SafeAreaProvider>
     </KeyboardAvoidingView>
