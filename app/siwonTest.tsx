@@ -7,6 +7,7 @@ import { theme } from "@/constants/colors";
 import QCarousel, { QCarouselDataProp } from "@/components/ui/QCarousel";
 import { ICarouselInstance } from "react-native-reanimated-carousel";
 import ActionButton from "@/components/ui/ActionButton";
+import MatchedCard from "@/components/ui/MatchedCard";
 
 // const DATA: QCarouselDataProp = [
 //   require("../assets/images/test1.png"),
@@ -24,14 +25,9 @@ export default function TestScreen() {
   return (
     <>
       <View style={styles.screen}>
-        <ActionButton type="REJECT" onPress={hadlePress} />
-        <ActionButton type="MATCH" onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" onPress={hadlePress} />
-      </View>
-      <View style={styles.screen}>
-        <ActionButton type="REJECT" disabled onPress={hadlePress} />
-        <ActionButton type="MATCH" disabled onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" disabled onPress={hadlePress} />
+        {/* <ActionButton type="REJECT" onPress={hadlePress} /> */}
+        {/* <ActionButton type="MATCH" onPress={hadlePress} /> */}
+        {/* <ActionButton type="SUPERLIKE" onPress={hadlePress} /> */}
       </View>
     </>
   );
