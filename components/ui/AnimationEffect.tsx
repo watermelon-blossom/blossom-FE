@@ -9,7 +9,7 @@ import { wScale } from "@/util/responsive.util";
 
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
-export type AnimationType = "haear" | "star";
+export type AnimationType = "heart" | "star";
 
 type AnimationSourceType =
   | string
@@ -24,7 +24,7 @@ const animationData: {
     style: ViewStyle | null;
   };
 } = {
-  haear: {
+  heart: {
     speed: 1,
     source: require("../../assets/animation/heart.json"),
     style: { width: wScale(200), height: wScale(200) },
