@@ -20,12 +20,12 @@ export default function account() {
   return (
     <View style={styles.container}>
       <CText>Account</CText>
-      <Header
+      {/* <Header
         left={<IconButton iconName="back" />}
         right={<IconButton iconName="setting" />}
         title="Account"
         subTitle="Account"
-      />
+      /> */}
     </View>
   );
 }

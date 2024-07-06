@@ -26,7 +26,7 @@ export default function RootLayout() {
   // testpage 자동 이동용
   useEffect(() => {
     if (loaded) {
-      router.navigate("siwonTest");
+      router.navigate("matchSuccess");
     }
   }, [loaded]);
 
@@ -46,6 +46,7 @@ export default function RootLayout() {
           >
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="index" />
+            <Stack.Screen name="matchSuccess" />
             <Stack.Screen name="hyunwooTest" />
             <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
