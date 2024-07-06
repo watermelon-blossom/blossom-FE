@@ -1,11 +1,12 @@
 import { font } from "@/constants/font";
 import { wScale } from "@/util/responsive.util";
 import React from "react";
-import { Text, StyleSheet, TextProps } from "react-native";
+import { Text, StyleSheet, TextProps, TextStyle } from "react-native";
 
 type HeadingProps = TextProps & {
   children: React.ReactNode;
   level: 1 | 2 | 3 | 4 | 5 | 6;
+  style?: TextStyle;
 };
 
 export default function Heading({
