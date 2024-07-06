@@ -49,7 +49,7 @@ export default function MatchedCard({
               },
         ]}
       >
-        <SvgIcon name="like" size={wScale(30)} fill="#E94057" />
+        <SvgIcon name="like" size={wScale(30)} fill={theme.primary} />
       </View>
     </View>
   );
