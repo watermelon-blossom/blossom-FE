@@ -12,3 +12,4 @@ export { default as account } from "./account.svg";
 export { default as close } from "./close.svg";
 export { default as like } from "./like.svg";
 export { default as star } from "./star.svg";
+export { default as right } from "./right.svg";
