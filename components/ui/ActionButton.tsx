@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: wScale(3.84),
     elevation: wScale(5),
-    overflow: "hidden",
   },
   disabled: {
     backgroundColor: gray[300],

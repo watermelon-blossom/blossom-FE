@@ -18,7 +18,7 @@ const useAnimationEffectStore = create<StateStore>()(
   immer((set) => ({
     data: {
       isShow: false,
-      type: "haear",
+      type: "heart",
       onAnimationEnd: () => {},
     },
 
@@ -35,7 +35,7 @@ const useAnimationEffectStore = create<StateStore>()(
       initAnimation: () => {
         set((state) => {
           state.data.isShow = false;
-          state.data.type = "haear";
+          state.data.type = "heart";
           state.data.onAnimationEnd = () => {};
         });
       },
