@@ -7,6 +7,7 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import CSafeAreaView from "@/components/ui/CSafeAreaView";
+import AnimationEffect from "@/components/ui/AnimationEffect";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +26,7 @@ export default function RootLayout() {
   // testpage 자동 이동용
   useEffect(() => {
     if (loaded) {
-      router.navigate("siwonTest");
+      router.navigate("hyunwooTest");
     }
   }, [loaded]);
 
@@ -45,10 +46,12 @@ export default function RootLayout() {
           >
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="index" />
+            <Stack.Screen name="matchSuccess" />
             <Stack.Screen name="hyunwooTest" />
             <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
+          <AnimationEffect />
         </CSafeAreaView>
       </SafeAreaProvider>
     </KeyboardAvoidingView>

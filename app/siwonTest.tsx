@@ -20,6 +20,20 @@ export default function TestScreen() {
 
   return (
     <>
+      {/* <View style={styles.animationWrapper}>
+        <LottieView
+          // autoPlay={false}
+          loop={false}
+          ref={animation}
+          speed={1.2}
+          style={{
+            width: 200,
+            height: 200,
+          }}
+          source={require("../assets/animation/star.json")}
+        />
+      </View> */}
+
       <View style={styles.screen}>
         <DoubleSliderInput
           name="val1"
@@ -50,5 +64,6 @@ const styles = StyleSheet.create({
     gap: 20,
     padding: 20,
     backgroundColor: theme.contrast,
+    paddingTop: 550,
   },
 });
