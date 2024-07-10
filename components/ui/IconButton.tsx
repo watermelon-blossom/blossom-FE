@@ -14,6 +14,7 @@ type IconButtonProps = PressableProps & {
   buttonSize?: number;
   disabled?: boolean;
   onPress?: () => void;
+  style?: ViewStyle;
 };
 
 export default function IconButton({
@@ -24,12 +25,14 @@ export default function IconButton({
   buttonSize = wScale(52),
   disabled = false,
   onPress,
+  style,
   ...props
 }: IconButtonProps) {
   return (
     <Pressable
       style={({ pressed }) => [
         styles.button,
+        style,
         type === "white" && typeStyles.whiteBg,
         type === "transparent" && typeStyles.transparentBg,
         disabled && styles.disabledStyle,

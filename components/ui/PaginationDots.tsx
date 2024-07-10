@@ -39,7 +39,7 @@ type DotProps = {
 
 const Dot = ({ isActive, dotStyle, activeDotStyle }: DotProps) => (
   <View
-    style={[styles.dot, isActive && [styles.active, activeDotStyle], dotStyle]}
+    style={[styles.dot, dotStyle, isActive && [styles.active, activeDotStyle]]}
   />
 );
 

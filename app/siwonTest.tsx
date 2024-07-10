@@ -1,11 +1,7 @@
-import Button from "@/components/ui/Button";
-import PaginationDots from "@/components/ui/PaginationDots";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 
-import QCarousel, { QCarouselDataProp } from "@/components/ui/QCarousel";
-import { ICarouselInstance } from "react-native-reanimated-carousel";
 import ActionButton from "@/components/ui/ActionButton";
 import SingleSliderInput from "@/components/ui/SingleSliderInput";
 
@@ -30,6 +26,20 @@ export default function TestScreen() {
   console.log("userInput", userInput);
   return (
     <>
+      {/* <View style={styles.animationWrapper}>
+        <LottieView
+          // autoPlay={false}
+          loop={false}
+          ref={animation}
+          speed={1.2}
+          style={{
+            width: 200,
+            height: 200,
+          }}
+          source={require("../assets/animation/star.json")}
+        />
+      </View> */}
+
       <View style={styles.screen}>
         <SingleSliderInput
           name="val1"
@@ -60,5 +70,6 @@ const styles = StyleSheet.create({
     gap: 20,
     padding: 20,
     backgroundColor: theme.contrast,
+    paddingTop: 550,
   },
 });
