@@ -41,7 +41,6 @@ export default function SelectButton({ onSelectMenu }: SelectButtonProps) {
               styles.button,
               selected === data.value && {
                 backgroundColor: theme.primary,
-                borderColor: theme.primary,
               },
             ]}
             onPress={() => handlePressMenu(data.label, data.value)}
