@@ -1,29 +1,23 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 
-import ActionButton from "@/components/ui/ActionButton";
-import SingleSliderInput from "@/components/ui/SingleSliderInput";
-
-// const DATA: QCarouselDataProp = [
-//   require("../assets/images/test1.png"),
-//   require("../assets/images/test2.png"),
-//   require("../assets/images/test3.png"),
-// ];
+import DoubleSliderInput from "@/components/ui/DoubleSliderInput";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function TestScreen() {
   const [userInput, setUserInput] = useState({
-    val1: 20,
-    val2: 50,
+    val1: [0, 50],
+    val2: [0, 30],
   });
 
-  const hadleChangeValue = (name: string, value: number) => {
+  const hadleChangeValue = (name: string, value: number[]) => {
     setUserInput((prev) => ({ ...prev, [name]: value }));
   };
 
-  console.log("userInput", userInput);
+  console.log(userInput.val1);
+
   return (
     <>
       {/* <View style={styles.animationWrapper}>
@@ -41,14 +35,14 @@ export default function TestScreen() {
       </View> */}
 
       <View style={styles.screen}>
-        <SingleSliderInput
+        <DoubleSliderInput
           name="val1"
           value={userInput.val1}
           min={0}
           max={100}
           onChange={hadleChangeValue}
         />
-        <SingleSliderInput
+        <DoubleSliderInput
           name="val2"
           value={userInput.val2}
           min={0}
