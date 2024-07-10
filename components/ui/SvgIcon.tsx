@@ -2,7 +2,7 @@
 import React from "react";
 import { SvgProps } from "react-native-svg";
 
-import * as Icons from "@/assets/Icons/index";
+import * as Icons from "@/assets/icons/index";
 import { colors } from "@/constants/colors";
 import { wScale } from "@/util/responsive.util";
 
@@ -11,6 +11,7 @@ type IconProps = SvgProps & {
   size?: number;
   fill?: string;
 };
+
 export default function SvgIcon({
   name,
   fill = colors.theme.primary,

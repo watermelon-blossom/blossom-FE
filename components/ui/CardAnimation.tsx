@@ -12,7 +12,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import IconButton from "./IconButton";
-import * as Icons from "@/assets/Icons/index";
+import * as Icons from "@/assets/icons/index";
 
 type CardAnimationProps = {
   children: React.ReactNode;

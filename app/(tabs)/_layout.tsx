@@ -12,14 +12,14 @@ import { wScale } from "@/util/responsive.util";
 import { systemColor, theme } from "@/constants/colors";
 import { fontSize } from "@/constants/font";
 
-export default function RootLayout() {
+export default function tabLayout() {
   return (
     <Tabs
       screenOptions={{
         header: ({ options }) => <Header options={options} />,
         tabBarStyle: {
           backgroundColor: "#F3F3F3",
-          height: wScale(80),
+          height: wScale(70),
         },
         tabBarActiveTintColor: theme.primary,
         tabBarShowLabel: false,

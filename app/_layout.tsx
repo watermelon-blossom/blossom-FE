@@ -5,6 +5,7 @@ import { KeyboardAvoidingView } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
+import "moment/locale/ko";
 
 import CSafeAreaView from "@/components/ui/CSafeAreaView";
 import AnimationEffect from "@/components/ui/AnimationEffect";
@@ -26,7 +27,7 @@ export default function RootLayout() {
   // testpage 자동 이동용
   useEffect(() => {
     if (loaded) {
-      router.navigate("hyunwooTest");
+      router.navigate("messages");
     }
   }, [loaded]);
 
