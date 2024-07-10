@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 
 import ActionButton from "@/components/ui/ActionButton";
-import { useAnimationEffectActions } from "@/store/useLayoutStore";
-import { AnimationType } from "@/components/ui/AnimationEffect";
+import SingleSliderInput from "@/components/ui/SingleSliderInput";
+
+// const DATA: QCarouselDataProp = [
+//   require("../assets/images/test1.png"),
+//   require("../assets/images/test2.png"),
+//   require("../assets/images/test3.png"),
+// ];
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function TestScreen() {
-  const { startAnimation } = useAnimationEffectActions();
+  const [userInput, setUserInput] = useState({
+    val1: 20,
+    val2: 50,
+  });
 
-  const hadlePress = (type: AnimationType) => {
-    console.log("press");
-    startAnimation(type, () => {
-      console.log("onAnimationEnd");
-    });
+  const hadleChangeValue = (name: string, value: number) => {
+    setUserInput((prev) => ({ ...prev, [name]: value }));
   };
 
+  console.log("userInput", userInput);
   return (
     <>
       {/* <View style={styles.animationWrapper}>
@@ -35,15 +41,22 @@ export default function TestScreen() {
       </View> */}
 
       <View style={styles.screen}>
-        <ActionButton type="REJECT" onPress={() => {}} />
-        <ActionButton type="MATCH" onPress={() => hadlePress("haear")} />
-        <ActionButton type="SUPERLIKE" onPress={() => hadlePress("star")} />
+        <SingleSliderInput
+          name="val1"
+          value={userInput.val1}
+          min={0}
+          max={100}
+          onChange={hadleChangeValue}
+        />
+        <SingleSliderInput
+          name="val2"
+          value={userInput.val2}
+          min={0}
+          max={100}
+          disabled
+          onChange={hadleChangeValue}
+        />
       </View>
-      {/* <View style={styles.screen}>
-        <ActionButton type="REJECT" disabled onPress={hadlePress} />
-        <ActionButton type="MATCH" disabled onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" disabled onPress={hadlePress} />
-      </View> */}
     </>
   );
 }
@@ -53,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
+    // flexDirection: "row",
     gap: 20,
     padding: 20,
     backgroundColor: theme.contrast,
