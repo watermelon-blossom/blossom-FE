@@ -1,0 +1,16 @@
+export { default as account } from "./account.svg";
+export { default as back } from "./back.svg";
+export { default as camera } from "./camera.svg";
+export { default as close } from "./close.svg";
+export { default as combinedShape } from "./combined_shape.svg";
+export { default as discover } from "./discover.svg";
+export { default as like } from "./like.svg";
+export { default as match } from "./match.svg";
+export { default as message } from "./message.svg";
+export { default as more } from "./more.svg";
+export { default as search } from "./search.svg";
+export { default as send } from "./send.svg";
+export { default as setting } from "./setting.svg";
+export { default as slideHandle } from "./slide_handle.svg";
+export { default as sort } from "./sort.svg";
+export { default as star } from "./star.svg";

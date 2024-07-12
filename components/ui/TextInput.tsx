@@ -1,15 +1,15 @@
 import { gray } from "@/constants/colors";
 import { fontSize } from "@/constants/font";
 import { wScale } from "@/util/responsive.util";
-import React from "react";
+import React, { useRef } from "react";
 import {
   Text,
   View,
   StyleSheet,
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
-  FlexStyle,
   ViewStyle,
+  Pressable,
 } from "react-native";
 
 type TextInputProps = Omit<RNTextInputProps, "onChangeText"> & {
@@ -38,8 +38,15 @@ export default function TextInput({
   onChangeText,
   ...others
 }: TextInputProps) {
+  const ref = useRef<RNTextInput>(null);
+
+  const handlePressInput = () => {
+    console.log("focus");
+    ref.current?.focus();
+  };
+
   return (
-    <View style={[{ width, height }, style]}>
+    <Pressable style={[{ width, height }, style]} onPress={handlePressInput}>
       {label && (
         <View style={styles.textWrapper}>
           <Text style={[styles.nameText, disabled && styles.disabled]}>
@@ -50,6 +57,7 @@ export default function TextInput({
       <View style={[styles.inputWrapper, { width, height }]}>
         {icon && <View style={[iconWrapperStyle]}>{icon}</View>}
         <RNTextInput
+          ref={ref}
           style={[styles.input, disabled && styles.disabled]}
           value={value}
           editable={!disabled}
@@ -58,7 +66,7 @@ export default function TextInput({
           {...others}
         />
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -94,7 +102,6 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: "center",
-    backgroundColor: "white",
     color: "black",
     fontSize: fontSize.md,
   },

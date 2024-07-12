@@ -19,10 +19,11 @@ export default function tabLayout() {
         header: ({ options }) => <Header options={options} />,
         tabBarStyle: {
           backgroundColor: "#F3F3F3",
-          height: wScale(70),
+          height: wScale(60),
         },
         tabBarActiveTintColor: theme.primary,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen

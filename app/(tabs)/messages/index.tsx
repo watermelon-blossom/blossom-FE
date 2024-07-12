@@ -58,13 +58,14 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingHorizontal: wScale(20),
+    marginBottom: wScale(15),
   },
   list: {
     paddingHorizontal: wScale(20),
   },
   title: {
-    paddingTop: wScale(20),
-    paddingBottom: wScale(10),
+    paddingTop: wScale(15),
+    paddingBottom: wScale(20),
   },
   separator: {
     height: wScale(1),

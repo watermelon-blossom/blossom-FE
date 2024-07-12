@@ -24,7 +24,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(2, "hour").toISOString(),
   },
   {
-    name: "초단",
+    name: "쵸단",
     count: 12,
     lastMessage: "삐약~ 삐약~ 병아리~",
     uri: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2023/10/18/ed44fa35-baa3-4269-afa9-e0fa4d101817.jpg",

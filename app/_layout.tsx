@@ -9,6 +9,7 @@ import "moment/locale/ko";
 
 import CSafeAreaView from "@/components/ui/CSafeAreaView";
 import AnimationEffect from "@/components/ui/AnimationEffect";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,6 +38,7 @@ export default function RootLayout() {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <StatusBar style="dark" />
       <SafeAreaProvider>
         <CSafeAreaView>
           <Stack
