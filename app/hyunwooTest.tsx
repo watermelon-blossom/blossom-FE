@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 import Dropdown, { DropdownItem } from "@/components/ui/Dropdown";
 

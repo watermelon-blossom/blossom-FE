@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 
-import ActionButton from "@/components/ui/ActionButton";
-import { useAnimationEffectActions } from "@/store/useLayoutStore";
-import { AnimationType } from "@/components/ui/AnimationEffect";
+import DoubleSliderInput from "@/components/ui/DoubleSliderInput";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function TestScreen() {
-  const { startAnimation } = useAnimationEffectActions();
+  const [userInput, setUserInput] = useState({
+    val1: [0, 50],
+    val2: [0, 30],
+  });
 
-  const hadlePress = (type: AnimationType) => {
-    console.log("press");
-    startAnimation(type, () => {
-      console.log("onAnimationEnd");
-    });
+  const hadleChangeValue = (name: string, value: number[]) => {
+    setUserInput((prev) => ({ ...prev, [name]: value }));
   };
+
+  console.log(userInput.val1);
 
   return (
     <>
@@ -35,15 +35,22 @@ export default function TestScreen() {
       </View> */}
 
       <View style={styles.screen}>
-        <ActionButton type="REJECT" onPress={() => {}} />
-        <ActionButton type="MATCH" onPress={() => hadlePress("haear")} />
-        <ActionButton type="SUPERLIKE" onPress={() => hadlePress("star")} />
+        <DoubleSliderInput
+          name="val1"
+          value={userInput.val1}
+          min={0}
+          max={100}
+          onChange={hadleChangeValue}
+        />
+        <DoubleSliderInput
+          name="val2"
+          value={userInput.val2}
+          min={0}
+          max={100}
+          disabled
+          onChange={hadleChangeValue}
+        />
       </View>
-      {/* <View style={styles.screen}>
-        <ActionButton type="REJECT" disabled onPress={hadlePress} />
-        <ActionButton type="MATCH" disabled onPress={hadlePress} />
-        <ActionButton type="SUPERLIKE" disabled onPress={hadlePress} />
-      </View> */}
     </>
   );
 }
@@ -53,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
+    // flexDirection: "row",
     gap: 20,
     padding: 20,
     backgroundColor: theme.contrast,
