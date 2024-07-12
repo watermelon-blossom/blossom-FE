@@ -14,4 +14,3 @@ export { default as setting } from "./setting.svg";
 export { default as slideHandle } from "./slide_handle.svg";
 export { default as sort } from "./sort.svg";
 export { default as star } from "./star.svg";
-export { default as right } from "./right.svg";

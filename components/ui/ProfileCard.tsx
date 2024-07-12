@@ -70,7 +70,7 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
         <BlurView intensity={30} tint="dark" style={itemStyles.locationWrapper}>
           <View style={itemStyles.location}>
             <SvgIcon
-              name="CombinedShape"
+              name="combinedShape"
               fill={theme.white}
               size={wScale(14)}
             />

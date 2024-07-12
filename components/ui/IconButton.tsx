@@ -4,7 +4,7 @@ import { Pressable, PressableProps, StyleSheet, ViewStyle } from "react-native";
 import { colors } from "@/constants/colors";
 import { wScale } from "@/util/responsive.util";
 import SvgIcon from "./SvgIcon";
-import * as Icons from "@/assets/Icons/index";
+import * as Icons from "@/assets/icons/index";
 
 type IconButtonProps = PressableProps & {
   type?: "white" | "transparent";

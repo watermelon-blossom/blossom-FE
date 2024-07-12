@@ -9,7 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "svg": "node ./scripts/createSvgIndex.js"
   },
   "jest": {
     "preset": "jest-expo"

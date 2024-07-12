@@ -1,38 +1,52 @@
 import { gray } from "@/constants/colors";
 import { fontSize } from "@/constants/font";
 import { wScale } from "@/util/responsive.util";
-import React from "react";
+import React, { useRef } from "react";
 import {
   Text,
   View,
   StyleSheet,
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
-  FlexStyle,
+  ViewStyle,
+  Pressable,
 } from "react-native";
 
 type TextInputProps = Omit<RNTextInputProps, "onChangeText"> & {
+  style?: ViewStyle;
   name: string;
   label?: string;
   value: string;
   disabled?: boolean;
-  width?: FlexStyle["width"];
-  height?: FlexStyle["height"];
+  iconWrapperStyle?: ViewStyle;
+  icon?: React.ReactNode;
+  width?: number;
+  height?: number;
   onChangeText: (name: string, text: string) => void;
 };
 
 export default function TextInput({
+  style,
   name,
   label,
   value,
-  width = "100%",
+  width,
   disabled = false,
+  icon,
+  iconWrapperStyle,
   height = wScale(60),
   onChangeText,
   ...others
 }: TextInputProps) {
+  const ref = useRef<RNTextInput>(null);
+
+  const handlePressInput = () => {
+    console.log("focus");
+    ref.current?.focus();
+  };
+
   return (
-    <View style={[{ width, height }]}>
+    <Pressable style={[{ width, height }, style]} onPress={handlePressInput}>
       {label && (
         <View style={styles.textWrapper}>
           <Text style={[styles.nameText, disabled && styles.disabled]}>
@@ -40,15 +54,19 @@ export default function TextInput({
           </Text>
         </View>
       )}
-      <RNTextInput
-        style={[styles.input, disabled && styles.disabled, { width, height }]}
-        value={value}
-        editable={!disabled}
-        placeholderTextColor={others.placeholderTextColor || gray[300]}
-        onChangeText={(text) => onChangeText(name, text)}
-        {...others}
-      />
-    </View>
+      <View style={[styles.inputWrapper, { width, height }]}>
+        {icon && <View style={[iconWrapperStyle]}>{icon}</View>}
+        <RNTextInput
+          ref={ref}
+          style={[styles.input, disabled && styles.disabled]}
+          value={value}
+          editable={!disabled}
+          placeholderTextColor={others.placeholderTextColor || gray[300]}
+          onChangeText={(text) => onChangeText(name, text)}
+          {...others}
+        />
+      </View>
+    </Pressable>
   );
 }
 
@@ -66,13 +84,24 @@ const styles = StyleSheet.create({
     color: gray[600],
     fontSize: wScale(14),
   },
+  icon: {
+    position: "absolute",
+    top: wScale(15),
+    left: wScale(20),
+    backgroundColor: "red",
+  },
+  inputWrapper: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: wScale(10),
+    paddingHorizontal: wScale(20),
+    borderColor: gray[200],
+    borderWidth: wScale(1),
+    borderRadius: wScale(16),
+  },
   input: {
     justifyContent: "center",
-    paddingHorizontal: wScale(24),
-    backgroundColor: "white",
-    borderRadius: wScale(16),
-    borderColor: gray[200],
-    borderWidth: 1,
     color: "black",
     fontSize: fontSize.md,
   },

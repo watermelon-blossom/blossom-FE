@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import SvgIcon from "./SvgIcon";
-import * as Icons from "@/assets/Icons/index";
+import * as Icons from "@/assets/icons/index";
 import { gray, theme } from "@/constants/colors";
 import { wScale } from "@/util/responsive.util";
 
