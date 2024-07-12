@@ -57,20 +57,8 @@ export default function SelectButton({ onSelectMenu }: SelectButtonProps) {
           </Pressable>
         );
       })}
-      {selected === 3 ? (
-        <View
-          style={[styles.separator, { position: "absolute", left: wScale(98) }]}
-        />
-      ) : (
-        selected !== 2 && (
-          <View
-            style={[
-              styles.separator,
-              { position: "absolute", right: wScale(98) },
-            ]}
-          />
-        )
-      )}
+      {selected === 3 && <View style={styles.leftSeparator} />}
+      {selected === 1 && <View style={styles.rightSeparator} />}
     </View>
   );
 }
@@ -98,11 +86,22 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
   },
-  separator: {
+  leftSeparator: {
     width: wScale(1),
     height: wScale(22),
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: gray[300],
+    position: "absolute",
+    left: wScale(98),
+  },
+  rightSeparator: {
+    width: wScale(1),
+    height: wScale(22),
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: gray[300],
+    position: "absolute",
+    right: wScale(98),
   },
 });
