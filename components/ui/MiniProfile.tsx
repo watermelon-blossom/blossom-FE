@@ -52,6 +52,12 @@ export default function MiniProfile({
     .onStart(() => {
       runOnJS(onPress)("like", data);
     });
+  const handleDislikePress = () => {
+    onPress("dislike", data);
+  };
+  const handleLikePress = () => {
+    onPress("like", data);
+  };
 
   return (
     <GestureHandlerRootView
@@ -80,17 +86,25 @@ export default function MiniProfile({
       </CText>
       {data.matched === "yet" && (
         <BlurView intensity={40} tint="dark" style={styles.profileWrapper}>
-          <GestureDetector gesture={dislikeTap}>
-            <View style={styles.iconWrapper}>
-              <SvgIcon name="close" fill={theme.white} size={wScale(20)} />
-            </View>
-          </GestureDetector>
+          <Pressable
+            style={({ pressed }) => [
+              styles.iconWrapper,
+              pressed && styles.pressed,
+            ]}
+            onPress={handleDislikePress}
+          >
+            <SvgIcon name="close" fill={theme.white} size={wScale(20)} />
+          </Pressable>
           <View style={styles.separator} />
-          <GestureDetector gesture={likeTap}>
-            <Pressable style={styles.iconWrapper}>
-              <SvgIcon name="like" fill={theme.white} size={wScale(20)} />
-            </Pressable>
-          </GestureDetector>
+          <Pressable
+            style={({ pressed }) => [
+              styles.iconWrapper,
+              pressed && styles.pressed,
+            ]}
+            onPress={handleLikePress}
+          >
+            <SvgIcon name="like" fill={theme.white} size={wScale(20)} />
+          </Pressable>
         </BlurView>
       )}
       {data.matched === "match" && (
@@ -122,6 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: wScale(16),
     overflow: "hidden",
   },
+  pressed: { opacity: 0.7 },
   profile: {
     position: "absolute",
     bottom: wScale(45),
