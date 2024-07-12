@@ -41,7 +41,6 @@ export default function TextInput({
   const ref = useRef<RNTextInput>(null);
 
   const handlePressInput = () => {
-    console.log("focus");
     ref.current?.focus();
   };
 

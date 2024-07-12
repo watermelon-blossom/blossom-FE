@@ -1,3 +1,4 @@
+import Header from "@/components/ui/Header";
 import { Stack, router } from "expo-router";
 
 export default function messagesLayout() {
@@ -9,7 +10,7 @@ export default function messagesLayout() {
       }}
     >
       <Stack.Screen name="index" options={{}} />
-      <Stack.Screen name="chat" options={{}} />
+      <Stack.Screen name="[id]/index" />
     </Stack>
   );
 }
