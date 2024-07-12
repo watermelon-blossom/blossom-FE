@@ -32,6 +32,12 @@ export default function Dropdown({
   const [value, setValue] = useState<string>();
   const [isFocus, setIsFocus] = useState(false);
 
+  const handleOnChange = (item: DropdownItem) => {
+    setValue(item.value);
+    setIsFocus(false);
+    onSelect(item.label);
+  };
+
   return (
     <View style={[{ width: width }, styles.container]}>
       <CText
@@ -58,9 +64,7 @@ export default function Dropdown({
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
-          setIsFocus(false);
-          onSelect(item.label);
+          handleOnChange(item);
         }}
         containerStyle={styles.containerStyle}
         itemContainerStyle={styles.itemContainerStyle}
