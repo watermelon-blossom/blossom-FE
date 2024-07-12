@@ -1,18 +1,18 @@
 import { gray, theme } from "@/constants/colors";
 import { useState } from "react";
 import { StyleSheet, TextStyle, View } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
+import { Dropdown as DropdownLib } from "react-native-element-dropdown";
 import CText from "./CText";
 import SvgIcon from "./SvgIcon";
 import { wScale } from "@/util/responsive.util";
-import { fontFamilie } from "@/constants/font";
+import { font, fontFamilie } from "@/constants/font";
 
 export type DropdownItem = {
   label: string;
   value: string;
 };
 
-type CustomDropdownProps = {
+type DropdownProps = {
   data: DropdownItem[];
   location: string;
   width?: number;
@@ -21,14 +21,14 @@ type CustomDropdownProps = {
   textStyle?: TextStyle;
 };
 
-export default function CustomDropdown({
+export default function Dropdown({
   data,
   location,
   width = wScale(295),
   disabled = false,
   onSelect,
   textStyle,
-}: CustomDropdownProps) {
+}: DropdownProps) {
   const [value, setValue] = useState<string>();
   const [isFocus, setIsFocus] = useState(false);
 
@@ -36,12 +36,12 @@ export default function CustomDropdown({
     <View style={[{ width: width }, styles.container]}>
       <CText
         size="sm"
-        color={gray[300]}
+        color={gray[200]}
         style={[styles.label, isFocus && { color: theme.primary }]}
       >
         Location
       </CText>
-      <Dropdown
+      <DropdownLib
         style={[styles.dropdown, isFocus && { borderColor: theme.primary }]}
         placeholderStyle={[styles.placeholderStyle, textStyle]}
         selectedTextStyle={[styles.selectedTextStyle, textStyle]}
@@ -62,10 +62,12 @@ export default function CustomDropdown({
           setIsFocus(false);
           onSelect(item.label);
         }}
+        containerStyle={styles.containerStyle}
+        itemContainerStyle={styles.itemContainerStyle}
         renderRightIcon={() => (
           <SvgIcon
             name="right"
-            fill={disabled ? gray[300] : theme.primary}
+            fill={disabled ? gray[200] : theme.primary}
             size={wScale(30)}
             style={styles.iconStyle}
           />
@@ -82,7 +84,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     height: wScale(58),
-    borderColor: gray[300],
+    borderColor: gray[200],
     borderWidth: wScale(1),
     borderRadius: wScale(15),
     paddingHorizontal: wScale(8),
@@ -94,17 +96,22 @@ const styles = StyleSheet.create({
     top: wScale(10),
     zIndex: 3000,
     paddingHorizontal: wScale(8),
-    fontSize: wScale(12),
+    fontSize: font.size.sm,
   },
   placeholderStyle: {
-    fontSize: wScale(14),
+    fontSize: font.size.sm,
     paddingLeft: wScale(15),
   },
   selectedTextStyle: {
-    fontSize: wScale(14),
+    fontSize: font.size.sm,
     paddingLeft: wScale(15),
   },
   iconStyle: {
     paddingRight: wScale(30),
+  },
+  containerStyle: { marginTop: wScale(5), borderRadius: wScale(15) },
+  itemContainerStyle: {
+    borderRadius: wScale(15),
+    overflow: "hidden",
   },
 });

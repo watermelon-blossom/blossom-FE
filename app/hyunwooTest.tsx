@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { theme } from "@/constants/colors";
-import CustomDropdown, { DropdownItem } from "@/components/ui/CustomDropdown";
+import Dropdown, { DropdownItem } from "@/components/ui/Dropdown";
 
 const data: DropdownItem[] = [
   { label: "서울", value: "1" },
@@ -24,8 +24,8 @@ export default function TestScreen() {
 
   return (
     <View style={styles.screen}>
-      <CustomDropdown data={data} location="서울" onSelect={handleSelect} />
-      <CustomDropdown
+      <Dropdown data={data} location="서울" onSelect={handleSelect} />
+      <Dropdown
         data={data}
         location="서울"
         onSelect={handleSelect}
