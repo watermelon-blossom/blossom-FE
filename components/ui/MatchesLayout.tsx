@@ -23,12 +23,13 @@ export default function MatchesLayout({
   };
   return (
     <View style={styles.container}>
-      <View style={styles.sepWrapper}>
-        <View style={styles.separator} />
-        <CText color={gray[400]} style={styles.dateIndicator}>
-          {data.date}
-        </CText>
-        <View style={styles.separator} />
+      <View style={styles.dateWrapper}>
+        <View style={styles.separater} />
+        <View style={styles.dateTextWrapper}>
+          <CText style={styles.dateText} size="sm">
+            {data.date}
+          </CText>
+        </View>
       </View>
       <View style={styles.profileWrapper}>
         {data.profile.map(
@@ -56,20 +57,27 @@ const styles = StyleSheet.create({
     backgroundColor: theme.white,
     paddingHorizontal: wScale(10),
   },
-  sepWrapper: {
-    flexDirection: "row",
-    justifyContent: "center",
+  dateWrapper: {
     alignItems: "center",
+    justifyContent: "center",
+    marginTop: wScale(24),
+    marginBottom: wScale(16),
   },
-  dateIndicator: {
-    paddingHorizontal: wScale(10),
-    textAlign: "center",
-    zIndex: 3000,
+  separater: {
+    width: "100%",
+    height: 1,
+    backgroundColor: gray[100],
   },
-  separator: {
-    flex: 1,
-    height: wScale(1),
-    backgroundColor: gray[200],
+  dateTextWrapper: {
+    position: "absolute",
+    top: wScale(-6),
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  dateText: {
+    backgroundColor: theme.white,
+    paddingHorizontal: wScale(12),
   },
   profileWrapper: {
     paddingVertical: wScale(10),
