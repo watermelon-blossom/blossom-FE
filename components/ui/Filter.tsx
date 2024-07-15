@@ -59,7 +59,7 @@ export default function Filter({ onFilterSave }: FilterProps) {
     setSelectInput(value);
   };
   const handleLocationValue = (value: string) => {
-    setDropdownInput(value);
+    setDropdownInput(() => value);
   };
 
   const handleClear = () => {
@@ -83,7 +83,10 @@ export default function Filter({ onFilterSave }: FilterProps) {
         <Heading level={3} style={styles.title}>
           매칭 필터
         </Heading>
-        <Pressable style={styles.btn} onPress={handleClear}>
+        <Pressable
+          style={({ pressed }) => [styles.btn, pressed && styles.pressed]}
+          onPress={handleClear}
+        >
           <CText color={theme.primary} style={styles.clear}>
             초기화
           </CText>
@@ -152,6 +155,9 @@ const styles = StyleSheet.create({
   },
   clear: {
     textAlign: "right",
+  },
+  pressed: {
+    opacity: 0.7,
   },
   text: {
     justifyContent: "flex-start",

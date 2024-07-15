@@ -29,11 +29,11 @@ export default function Dropdown({
   onSelect,
   textStyle,
 }: DropdownProps) {
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string>(location);
   const [isFocus, setIsFocus] = useState(false);
 
   const handleOnChange = (item: DropdownItem) => {
-    setValue(item.value);
+    setValue(item.label);
     setIsFocus(false);
     onSelect(item.label);
   };
