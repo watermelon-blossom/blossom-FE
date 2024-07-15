@@ -45,7 +45,7 @@ export default function Dropdown({
         color={gray[200]}
         style={[styles.label, isFocus && { color: theme.primary }]}
       >
-        Location
+        거주지
       </CText>
       <DropdownLib
         style={[styles.dropdown, isFocus && { borderColor: theme.primary }]}
@@ -84,7 +84,7 @@ export default function Dropdown({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    padding: wScale(16),
+    paddingVertical: wScale(16),
   },
   dropdown: {
     height: wScale(58),
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   label: {
     position: "absolute",
     backgroundColor: "white",
-    left: wScale(40),
+    left: wScale(20),
     top: wScale(10),
     zIndex: 3000,
     paddingHorizontal: wScale(8),

@@ -107,13 +107,12 @@ const CardAnimation = forwardRef<CardAnimationRef, CardAnimationProps>(
 
         if (currentIndex === index) {
           translateX.value = e.translationX;
-          if (e.translationX >= 10 || e.translationX <= -10) {
+          if (e.translationX >= 10) {
+            runOnJS(setIconName)("like");
             runOnJS(setIsShow)(true);
-            if (e.translationX > 10) {
-              runOnJS(setIconName)("like");
-            } else if (e.translationX < -10) {
-              runOnJS(setIconName)("close");
-            }
+          } else if (e.translationX <= -10) {
+            runOnJS(setIconName)("close");
+            runOnJS(setIsShow)(true);
           }
           animatedValue.value = interpolate(
             Math.abs(e.translationX),
