@@ -42,16 +42,6 @@ export default function MiniProfile({
     .onStart(() => {
       runOnJS(router.navigate)("account");
     });
-  const dislikeTap = Gesture.Tap()
-    .maxDuration(500)
-    .onStart(() => {
-      runOnJS(onPress)("dislike", data);
-    });
-  const likeTap = Gesture.Tap()
-    .maxDuration(500)
-    .onStart(() => {
-      runOnJS(onPress)("like", data);
-    });
   const handleDislikePress = () => {
     onPress("dislike", data);
   };
@@ -67,19 +57,15 @@ export default function MiniProfile({
         <Image
           source={data.Image}
           contentFit="cover"
-          style={[
-            { width: "100%", height: "100%" },
-            data.matched === "reject" && { opacity: 0.3 },
-          ]}
+          style={[styles.image, data.matched === "reject" && { opacity: 0.3 }]}
         />
       </GestureDetector>
       <CText
         size="md"
-        color={data.matched === "reject" ? gray[400] : theme.white}
+        color={data.matched === "reject" ? gray[500] : theme.white}
         style={[
           styles.profile,
-          data.matched === "match" && { bottom: wScale(10) },
-          data.matched === "reject" && { bottom: wScale(10) },
+          data.matched !== "yet" && { bottom: wScale(10) },
         ]}
       >
         {data.name}, {data.age}
@@ -135,6 +121,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: wScale(16),
     overflow: "hidden",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    borderRadius: wScale(16),
   },
   pressed: { opacity: 0.7 },
   profile: {
