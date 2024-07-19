@@ -1,35 +1,23 @@
 import { StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 import Dropdown, { DropdownItem } from "@/components/ui/Dropdown";
+import { router, useNavigation } from "expo-router";
+import Button from "@/components/ui/Button";
 
-const data: DropdownItem[] = [
-  { label: "서울", value: "1" },
-  { label: "경기", value: "2" },
-  { label: "인천", value: "3" },
-  { label: "강원", value: "4" },
-  { label: "충북", value: "5" },
-  { label: "충남", value: "6" },
-  { label: "전북", value: "7" },
-  { label: "전남", value: "8" },
-  { label: "경북", value: "9" },
-  { label: "경남", value: "10" },
-  { label: "제주", value: "11" },
+const data = [
+  "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2023/10/18/ed44fa35-baa3-4269-afa9-e0fa4d101817.jpg",
+  "https://i.namu.wiki/i/Nat7R8m76ArARjdLnZ6OPkbaleF62cjL6sFE5sNlIcrv7Jeyz62Rc14YqTn4Jrn8VOpokZl4Dp53a5mpxsBoKg.webp",
+  "https://cdn.todayflow.co.kr/news/photo/202303/436_2127_5848.jpg",
 ];
 
 export default function TestScreen() {
-  const handleSelect = (value: string) => {
-    console.log(value);
+  const handlePress = () => {
+    router.navigate("fullScreenPhoto");
   };
 
   return (
     <View style={styles.screen}>
-      <Dropdown data={data} location="서울" onSelect={handleSelect} />
-      <Dropdown
-        data={data}
-        location="서울"
-        onSelect={handleSelect}
-        disabled={true}
-      />
+      <Button onPress={handlePress}>photo</Button>
     </View>
   );
 }
