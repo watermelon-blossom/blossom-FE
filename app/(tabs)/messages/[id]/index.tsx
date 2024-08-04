@@ -13,7 +13,7 @@ import Header from "@/components/ui/Header";
 import IconButton from "@/components/ui/IconButton";
 import TextInput from "@/components/ui/TextInput";
 
-import { gray, theme } from "@/constants/colors";
+import { gray, systemColor, theme } from "@/constants/colors";
 import { getChatTime, getDateKorean } from "@/util/moment.util";
 import { wScale } from "@/util/responsive.util";
 
@@ -101,7 +101,7 @@ export default function chatIndex() {
             <View style={styles.nameWrapper}>
               <CText size="lg">{name}</CText>
               <CText style={styles.onlineText} size="xs" color={gray[200]}>
-                Online
+                {isOnline ? "Online" : "Offline"}
               </CText>
               <View style={[styles.dot, isOnline && styles.onlineDot]} />
             </View>
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     backgroundColor: gray[200],
   },
   onlineDot: {
-    backgroundColor: theme.primary,
+    backgroundColor: systemColor.success,
   },
   chattings: {
     gap: wScale(10),
