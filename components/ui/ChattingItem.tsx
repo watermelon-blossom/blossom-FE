@@ -7,6 +7,7 @@ import moment from "moment";
 import { gray } from "@/constants/colors";
 
 export type ChattingItem = {
+  id: string;
   uri: string;
   name: string;
   lastMessage: string;
@@ -14,7 +15,7 @@ export type ChattingItem = {
   count: number;
 };
 
-type ChattingItemProps = ChattingItem & {
+type ChattingItemProps = Omit<ChattingItem, "id"> & {
   onPress?: () => void;
 };
 

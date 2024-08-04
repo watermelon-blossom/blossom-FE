@@ -89,7 +89,7 @@ export default function Header({
         )}
       </View>
       <View style={centerStyle}>
-        {!isTitleLeft && options?.headerTitleAlign !== "left" && (
+        {typeof !isTitleLeft && options?.headerTitleAlign !== "left" && (
           <HeaderCenter
             title={titleText}
             subTitle={subTitleText}

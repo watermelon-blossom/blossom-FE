@@ -3,6 +3,7 @@ import moment from "moment";
 
 export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
   {
+    id: "1",
     name: "이시연",
     count: 123,
     lastMessage: "아저씨 누군데요!!!",
@@ -10,6 +11,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().toISOString(),
   },
   {
+    id: "2",
     name: "냥뇽녕냥",
     count: 4,
     lastMessage: "헛! 둘~ 셋~ 넷!",
@@ -17,6 +19,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(3, "minute").toISOString(),
   },
   {
+    id: "3",
     name: "마젠타",
     count: 1,
     lastMessage: "아니 요즘 진짜 베이스 연습하느라 손꾸락이 너무 아파!!",
@@ -24,6 +27,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(2, "hour").toISOString(),
   },
   {
+    id: "4",
     name: "쵸단",
     count: 12,
     lastMessage: "삐약~ 삐약~ 병아리~",
@@ -31,6 +35,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(1, "day").toISOString(),
   },
   {
+    id: "5",
     name: "우정잉",
     count: 0,
     lastMessage: "꽁꽁 얼어붙은 한강 위로 고양이가 걸어다닙니다.",
@@ -38,6 +43,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(10, "day").toISOString(),
   },
   {
+    id: "6",
     name: "유익병",
     count: 0,
     lastMessage: "시부레~! 지랄하고 자빠졌네! 시부레~! 시부레~!",
@@ -45,6 +51,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(31, "day").toISOString(),
   },
   {
+    id: "7",
     name: "아이유",
     count: 2,
     lastMessage: "이 노래 어때요?",
@@ -52,6 +59,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: moment().subtract(2, "day").toISOString(),
   },
   {
+    id: "8",
     name: "마레 플로스",
     count: 0,
     lastMessage: "제 목표는 드래곤과 인간의 원만한 관계를 위하여 ",
@@ -59,6 +67,7 @@ export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
     time: "2023-07-10T14:00:00Z",
   },
   {
+    id: "9",
     name: "장원영",
     count: 0,
     lastMessage: "안녕하세요~",
