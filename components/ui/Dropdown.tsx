@@ -14,28 +14,32 @@ export type DropdownItem = {
 
 type DropdownProps = {
   data: DropdownItem[];
-  location: string;
+  name: string;
+  labelName: string;
+  defaultData: string;
   width?: number;
   disabled?: boolean;
-  onSelect: (value: string) => void;
+  onSelect: (name: string, value: string) => void;
   textStyle?: TextStyle;
 };
 
 export default function Dropdown({
   data,
-  location,
+  name,
+  labelName,
+  defaultData,
   width = wScale(295),
   disabled = false,
   onSelect,
   textStyle,
 }: DropdownProps) {
-  const [value, setValue] = useState<string>(location);
+  const [value, setValue] = useState<string>(defaultData);
   const [isFocus, setIsFocus] = useState(false);
 
   const handleOnChange = (item: DropdownItem) => {
     setValue(item.label);
     setIsFocus(false);
-    onSelect(item.label);
+    onSelect(name, item.label);
   };
 
   return (
@@ -45,7 +49,7 @@ export default function Dropdown({
         color={gray[200]}
         style={[styles.label, isFocus && { color: theme.primary }]}
       >
-        거주지
+        {labelName}
       </CText>
       <DropdownLib
         style={[styles.dropdown, isFocus && { borderColor: theme.primary }]}
@@ -59,7 +63,7 @@ export default function Dropdown({
         minHeight={wScale(100)}
         labelField="label"
         valueField="value"
-        placeholder={disabled ? "" : !isFocus ? location : "..."}
+        placeholder={disabled ? "" : !isFocus ? defaultData : "..."}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { theme } from "@/constants/colors";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSharedValue } from "react-native-reanimated";
 import SwipeAnimation, {
   CardAnimationRef,
@@ -17,81 +17,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Filter from "@/components/ui/Filter";
 import IconButton from "@/components/ui/IconButton";
 import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
-
-const profiles: Profile[] = [
-  {
-    name: "Jessica Parker",
-    age: 25,
-    job: "Professional model",
-    images: [
-      require("@/assets/images/testPhoto1.png"),
-      require("@/assets/images/testPhoto2.png"),
-      require("@/assets/images/test1.png"),
-      require("@/assets/images/test2.png"),
-      require("@/assets/images/test3.png"),
-    ],
-  },
-  {
-    name: "Jessica Parker",
-    age: 23,
-    job: "Professional model",
-    images: [
-      require("@/assets/images/testPhoto1.png"),
-      require("@/assets/images/testPhoto2.png"),
-      require("@/assets/images/test1.png"),
-      require("@/assets/images/test2.png"),
-      require("@/assets/images/test3.png"),
-    ],
-  },
-  {
-    name: "Jessica Parker",
-    age: 23,
-    job: "Professional model",
-    images: [
-      require("@/assets/images/testPhoto1.png"),
-      require("@/assets/images/testPhoto2.png"),
-      require("@/assets/images/test1.png"),
-      require("@/assets/images/test2.png"),
-      require("@/assets/images/test3.png"),
-    ],
-  },
-  {
-    name: "Jessica Parker",
-    age: 23,
-    job: "Professional model",
-    images: [
-      require("@/assets/images/testPhoto1.png"),
-      require("@/assets/images/testPhoto2.png"),
-      require("@/assets/images/test1.png"),
-      require("@/assets/images/test2.png"),
-      require("@/assets/images/test3.png"),
-    ],
-  },
-  {
-    name: "Jessica Parker",
-    age: 23,
-    job: "Professional model",
-    images: [
-      require("@/assets/images/testPhoto1.png"),
-      require("@/assets/images/testPhoto2.png"),
-      require("@/assets/images/test1.png"),
-      require("@/assets/images/test2.png"),
-      require("@/assets/images/test3.png"),
-    ],
-  },
-  {
-    name: "Jessica Parker",
-    age: 23,
-    job: "Professional model",
-    images: [
-      require("@/assets/images/testPhoto1.png"),
-      require("@/assets/images/testPhoto2.png"),
-      require("@/assets/images/test1.png"),
-      require("@/assets/images/test2.png"),
-      require("@/assets/images/test3.png"),
-    ],
-  },
-];
+import CardAnimation from "@/components/ui/CardAnimation";
+import { profiles } from "@/data/profileData";
+import { Image } from "expo-image";
+import Heading from "@/components/ui/Heading";
 
 export default function discover() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -143,16 +72,16 @@ export default function discover() {
 
   const handleGesture = (gesture: string) => {
     if (gesture === "rightSwipe") {
-      console.log(currentIndex);
+      console.log("like");
       startAnimation("heart");
     } else if (gesture === "leftSwipe") {
-      console.log(currentIndex);
+      console.log("dislike");
     } else if (gesture === "profileTap") {
-      console.log(currentIndex);
+      console.log("go to profile");
       router.navigate("account");
     } else if (gesture === "doubleTap") {
+      console.log("superlike");
       startAnimation("star", () => {
-        console.log(currentIndex);
         router.navigate("matchSuccess");
       });
     }
@@ -161,14 +90,14 @@ export default function discover() {
   return (
     <GestureHandlerRootView style={styles.screen}>
       {currentIndex < profiles.length ? (
-        <View style={styles.screen}>
+        <View style={styles.container}>
           <View style={styles.cardContainer}>
             {profiles.map((data, index) => {
               if (index > currentIndex + MAX || index < currentIndex) {
                 return null;
               }
               return (
-                <SwipeAnimation
+                <CardAnimation
                   index={index}
                   key={index}
                   dataLength={profiles.length}
@@ -187,7 +116,7 @@ export default function discover() {
                     profile={data}
                     distance={1}
                   />
-                </SwipeAnimation>
+                </CardAnimation>
               );
             })}
           </View>
@@ -198,13 +127,11 @@ export default function discover() {
           </View>
         </View>
       ) : (
-        <View style={styles.container}>
-          <MaterialIcons
-            name="watch-later"
-            size={64}
-            color={theme.primary}
-            style={{ alignItems: "center" }}
-          />
+        <View style={styles.card}>
+          {/* <Heading level={2}>
+            
+            {new Date(time * 1000).toISOString().substr(11, 8)}
+          </Heading> */}
           <CText
             size="md"
             numberOfLines={2}
@@ -228,6 +155,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: theme.white,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
   },
   cardContainer: {
     flex: 1,
@@ -242,10 +174,12 @@ const styles = StyleSheet.create({
     gap: wScale(20),
     padding: wScale(20),
   },
-  container: {
-    flex: 1,
+  card: {
+    width: wScale(295),
+    height: wScale(450),
     alignContent: "center",
     justifyContent: "center",
+    borderRadius: wScale(20),
   },
   image: { width: "100%", height: "100%", borderRadius: wScale(20) },
 });

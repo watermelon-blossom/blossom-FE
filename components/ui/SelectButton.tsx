@@ -20,11 +20,13 @@ const datas = [
 ];
 
 type SelectButtonProps = {
+  name: string;
   defaultVal?: number;
-  onSelectMenu: (label: string, value: number) => void;
+  onSelectMenu: (name: string, value: number) => void;
 };
 
 export default function SelectButton({
+  name,
   defaultVal = 1,
   onSelectMenu,
 }: SelectButtonProps) {
@@ -34,9 +36,9 @@ export default function SelectButton({
     setSelected(defaultVal);
   }, [defaultVal]);
 
-  const handlePressMenu = (label: string, value: number) => {
+  const handlePressMenu = (value: number) => {
     setSelected(value);
-    onSelectMenu(label, value);
+    onSelectMenu(name, value);
   };
 
   return (
@@ -51,7 +53,7 @@ export default function SelectButton({
                 backgroundColor: theme.primary,
               },
             ]}
-            onPress={() => handlePressMenu(data.label, data.value)}
+            onPress={() => handlePressMenu(data.value)}
           >
             <CText
               style={[

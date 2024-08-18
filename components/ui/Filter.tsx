@@ -2,14 +2,14 @@ import { Pressable, StyleSheet, View } from "react-native";
 import Heading from "./Heading";
 import CText from "./CText";
 import { theme } from "@/constants/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectButton from "./SelectButton";
 import Dropdown, { DropdownItem } from "./Dropdown";
 import SingleSliderInput from "./SingleSliderInput";
 import DoubleSliderInput from "./DoubleSliderInput";
 import { wScale } from "@/util/responsive.util";
 import Button from "./Button";
-import useFilterStore from "@/store/useFilterStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const data: DropdownItem[] = [
   { label: "서울", value: "1" },
@@ -30,50 +30,48 @@ type FilterProps = {
 };
 
 export default function Filter({ onFilterSave }: FilterProps) {
-  const {
-    tendency,
-    location,
-    distance,
-    age,
-    setTendency,
-    setLocation,
-    setDistance,
-    setAge,
-  } = useFilterStore();
-  const [selectInput, setSelectInput] = useState(tendency);
-  const [dropdownInput, setDropdownInput] = useState(location);
-  const [singleInput, setSingleInput] = useState({
-    val1: distance,
-  });
-  const [doubleInput, setDoubleInput] = useState({
-    val1: age,
+  const [filterSettings, setFilterSettings] = useState({
+    tendency: 1,
+    location: "서울",
+    distance: 20,
+    age: [20, 40],
   });
 
+  useEffect(() => {
+    const loadSettings = async () => {
+      const savedSettings = await AsyncStorage.getItem("appSettings");
+      if (savedSettings) {
+        setFilterSettings(JSON.parse(savedSettings));
+      }
+    };
+    loadSettings();
+  }, []);
+
   const handleDistanceValue = (name: string, value: number) => {
-    setSingleInput((prev) => ({ ...prev, [name]: value }));
+    setFilterSettings((prev) => ({ ...prev, [name]: value }));
   };
   const handleAgeValue = (name: string, value: number[]) => {
-    setDoubleInput((prev) => ({ ...prev, [name]: value }));
+    setFilterSettings((prev) => ({ ...prev, [name]: value }));
   };
-  const handleTendencyValue = (tendency: string, value: number) => {
-    setSelectInput(value);
+  const handleTendencyValue = (name: string, value: number) => {
+    setFilterSettings((prev) => ({ ...prev, [name]: value }));
   };
-  const handleLocationValue = (value: string) => {
-    setDropdownInput(() => value);
+  const handleLocationValue = (name: string, value: string) => {
+    setFilterSettings((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleClear = () => {
-    setSelectInput(1);
-    setDropdownInput("서울");
-    setSingleInput({ val1: 20 });
-    setDoubleInput({ val1: [20, 40] });
+    setFilterSettings({
+      tendency: 1,
+      location: "서울",
+      distance: 20,
+      age: [20, 40],
+    });
+    AsyncStorage.setItem("appSettings", JSON.stringify(filterSettings));
   };
 
   const handleFilterSave = () => {
-    setTendency(selectInput);
-    setLocation(dropdownInput);
-    setDistance(singleInput.val1);
-    setAge(doubleInput.val1);
+    AsyncStorage.setItem("appSettings", JSON.stringify(filterSettings));
     onFilterSave();
   };
 
@@ -94,21 +92,24 @@ export default function Filter({ onFilterSave }: FilterProps) {
       </View>
       <CText style={styles.text}>선호 성향</CText>
       <SelectButton
-        defaultVal={selectInput}
+        name="tendency"
+        defaultVal={filterSettings.tendency}
         onSelectMenu={handleTendencyValue}
       />
       <Dropdown
         data={data}
-        location={dropdownInput}
+        name="location"
+        labelName="거주지"
+        defaultData={filterSettings.location}
         onSelect={handleLocationValue}
       />
       <View style={styles.textContainer}>
         <CText style={styles.text}>상대와의 최대 거리</CText>
-        <CText style={styles.text}>{singleInput.val1}km</CText>
+        <CText style={styles.text}>{filterSettings.distance}km</CText>
       </View>
       <SingleSliderInput
-        name="val1"
-        value={singleInput.val1}
+        name="distance"
+        value={filterSettings.distance}
         min={0}
         max={100}
         onChange={handleDistanceValue}
@@ -116,12 +117,12 @@ export default function Filter({ onFilterSave }: FilterProps) {
       <View style={styles.textContainer}>
         <CText style={styles.text}>연령대</CText>
         <CText style={styles.text}>
-          {doubleInput.val1[0]}~{doubleInput.val1[1]}
+          {filterSettings.age[0]}~{filterSettings.age[1]}
         </CText>
       </View>
       <DoubleSliderInput
-        name="val1"
-        value={doubleInput.val1}
+        name="age"
+        value={filterSettings.age}
         min={19}
         max={60}
         onChange={handleAgeValue}
