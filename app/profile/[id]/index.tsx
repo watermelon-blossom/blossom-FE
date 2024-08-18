@@ -11,7 +11,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import ReCarousel, {
   ICarouselInstance,
 } from "react-native-reanimated-carousel";
-import { profiles } from "@/data/profileData";
+import { profiles } from "@/data/profileTestData";
 
 export default function profile() {
   const [data, setData] = useState(profiles[0]);
