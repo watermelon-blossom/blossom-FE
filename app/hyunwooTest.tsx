@@ -6,7 +6,7 @@ import { router } from "expo-router";
 
 export default function TestScreen() {
   const handlePress = () => {
-    router.navigate(`${2}/profile`);
+    router.navigate(`profile/${2}`);
   };
 
   return (
