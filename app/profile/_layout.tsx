@@ -9,7 +9,6 @@ export default function messagesLayout() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="index" options={{}} />
       <Stack.Screen name="[id]/index" />
     </Stack>
   );
