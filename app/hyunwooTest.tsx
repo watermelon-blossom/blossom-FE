@@ -2,22 +2,17 @@ import { StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 import Dropdown, { DropdownItem } from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
-import { useRef } from "react";
-import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
-import Filter from "@/components/ui/Filter";
+
+import { router } from "expo-router";
 
 export default function TestScreen() {
-  const slideModalRef = useRef<SlideModalRefType>(null);
-  const handleModal = () => {
-    slideModalRef.current?.show();
+  const handlePress = () => {
+    router.navigate(`profile/${2}`);
   };
 
   return (
     <View style={styles.screen}>
-      <Button onPress={handleModal}>open</Button>
-      <SlideModal ref={slideModalRef}>
-        <Filter />
-      </SlideModal>
+      <Button onPress={handlePress}>profile</Button>
     </View>
   );
 }
