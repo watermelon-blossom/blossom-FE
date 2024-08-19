@@ -15,7 +15,7 @@ import Filter from "@/components/ui/Filter";
 import IconButton from "@/components/ui/IconButton";
 import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
 import CardAnimation from "@/components/ui/CardAnimation";
-import { profiles } from "@/data/profileData";
+import { profiles } from "@/data/profileTestData";
 import { Image } from "expo-image";
 
 export default function discover() {
