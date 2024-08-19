@@ -7,7 +7,7 @@ import { wScale } from "@/util/responsive.util";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import ReCarousel, {
   ICarouselInstance,
 } from "react-native-reanimated-carousel";
@@ -37,26 +37,30 @@ export default function profile() {
 
   return (
     <View style={styles.container}>
-      <ReCarousel
-        ref={ref}
-        data={data.images}
-        width={wScale(375)}
-        height={wScale(415)}
-        defaultIndex={0}
-        onSnapToItem={(idx) => {
-          setCurrentIndex(idx);
-        }}
-        scrollAnimationDuration={700}
-        snapEnabled
-        enabled
-        renderItem={({ item }) => (
-          <Image
-            source={item}
-            contentFit="cover"
-            style={{ width: "100%", height: "100%" }}
-          />
-        )}
-      />
+      <Pressable
+        onPress={() => router.navigate(`profile/${id}/fullScreenPhoto`)}
+      >
+        <ReCarousel
+          ref={ref}
+          data={data.images}
+          width={wScale(375)}
+          height={wScale(415)}
+          defaultIndex={0}
+          onSnapToItem={(idx) => {
+            setCurrentIndex(idx);
+          }}
+          scrollAnimationDuration={700}
+          snapEnabled
+          enabled
+          renderItem={({ item }) => (
+            <Image
+              source={item}
+              contentFit="cover"
+              style={{ width: "100%", height: "100%" }}
+            />
+          )}
+        />
+      </Pressable>
       <IconButton
         iconName="back"
         iconSize={wScale(24)}

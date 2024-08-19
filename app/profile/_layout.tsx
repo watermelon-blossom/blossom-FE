@@ -10,6 +10,7 @@ export default function messagesLayout() {
       }}
     >
       <Stack.Screen name="[id]/index" />
+      <Stack.Screen name="[id]/fullScreenPhoto" />
     </Stack>
   );
 }
