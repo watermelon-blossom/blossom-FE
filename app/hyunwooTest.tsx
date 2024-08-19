@@ -2,7 +2,6 @@ import { StyleSheet, View } from "react-native";
 import { theme } from "@/constants/colors";
 import Dropdown, { DropdownItem } from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
-
 import { router } from "expo-router";
 
 export default function TestScreen() {
