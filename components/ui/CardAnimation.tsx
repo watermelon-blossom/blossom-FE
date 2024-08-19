@@ -14,7 +14,6 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import IconButton from "./IconButton";
 import * as Icons from "@/assets/icons/index";
 import { useAnimationEffectActions } from "@/store/useLayoutStore";
-import { router } from "expo-router";
 
 type CardAnimationProps = {
   children: React.ReactNode;
@@ -58,7 +57,6 @@ const CardAnimation = forwardRef<CardAnimationRef, CardAnimationProps>(
     const direction = useSharedValue(0);
     const [isShow, setIsShow] = useState(false);
     const [iconName, setIconName] = useState<keyof typeof Icons>("like");
-    const { startAnimation } = useAnimationEffectActions();
 
     useImperativeHandle(ref, () => ({
       rightSwipe() {
