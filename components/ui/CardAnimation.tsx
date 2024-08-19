@@ -13,6 +13,8 @@ import Animated, {
 import { forwardRef, useImperativeHandle, useState } from "react";
 import IconButton from "./IconButton";
 import * as Icons from "@/assets/icons/index";
+import { useAnimationEffectActions } from "@/store/useLayoutStore";
+import { router } from "expo-router";
 
 type CardAnimationProps = {
   children: React.ReactNode;
@@ -56,11 +58,12 @@ const CardAnimation = forwardRef<CardAnimationRef, CardAnimationProps>(
     const direction = useSharedValue(0);
     const [isShow, setIsShow] = useState(false);
     const [iconName, setIconName] = useState<keyof typeof Icons>("like");
+    const { startAnimation } = useAnimationEffectActions();
 
     useImperativeHandle(ref, () => ({
       rightSwipe() {
         direction.value = 1;
-        runOnJS(handleGesture)("rightSwipe");
+        handleGesture("rightSwipe");
         translateX.value = withTiming(1.2 * width, { duration: 500 }, () => {
           runOnJS(setCurrentIndex)(currentIndex + 1);
         });
@@ -68,14 +71,18 @@ const CardAnimation = forwardRef<CardAnimationRef, CardAnimationProps>(
       },
       leftSwipe() {
         direction.value = -1;
-        runOnJS(handleGesture)("leftSwipe");
+        handleGesture("leftSwipe");
         translateX.value = withTiming(-1.2 * width, { duration: 500 }, () => {
           runOnJS(setCurrentIndex)(currentIndex + 1);
         });
         animatedValue.value = withTiming(currentIndex + 1);
       },
       doubleTap() {
-        runOnJS(handleGesture)("doubleTap");
+        handleGesture("doubleTap");
+        translateX.value = withTiming(1.2 * width, { duration: 500 }, () => {
+          runOnJS(setCurrentIndex)(currentIndex + 1);
+        });
+        animatedValue.value = withTiming(currentIndex + 1);
       },
     }));
 
@@ -98,6 +105,10 @@ const CardAnimation = forwardRef<CardAnimationRef, CardAnimationProps>(
       .numberOfTaps(2)
       .onStart(() => {
         runOnJS(handleGesture)("doubleTap");
+        translateX.value = withTiming(1.2 * width, { duration: 500 }, () => {
+          runOnJS(setCurrentIndex)(currentIndex + 1);
+        });
+        animatedValue.value = withTiming(currentIndex + 1);
       });
 
     const pan = Gesture.Pan()
@@ -107,13 +118,12 @@ const CardAnimation = forwardRef<CardAnimationRef, CardAnimationProps>(
 
         if (currentIndex === index) {
           translateX.value = e.translationX;
-          if (e.translationX >= 10 || e.translationX <= -10) {
+          if (e.translationX >= 10) {
+            runOnJS(setIconName)("like");
             runOnJS(setIsShow)(true);
-            if (e.translationX > 10) {
-              runOnJS(setIconName)("like");
-            } else if (e.translationX < -10) {
-              runOnJS(setIconName)("close");
-            }
+          } else if (e.translationX <= -10) {
+            runOnJS(setIconName)("close");
+            runOnJS(setIsShow)(true);
           }
           animatedValue.value = interpolate(
             Math.abs(e.translationX),

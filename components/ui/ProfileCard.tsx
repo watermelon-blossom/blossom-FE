@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ImageSourcePropType, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
 import ReCarousel, {
   ICarouselInstance,
 } from "react-native-reanimated-carousel";
@@ -10,12 +10,13 @@ import { gray, theme } from "@/constants/colors";
 import PaginationDots from "./PaginationDots";
 import SvgIcon from "./SvgIcon";
 import { BlurView } from "expo-blur";
+import { Image } from "expo-image";
 
 export type Profile = {
   name: string;
   age: number;
   job: string;
-  images: ImageSourcePropType[];
+  images: string[];
 };
 
 type ProfileCardProps = {
@@ -28,7 +29,7 @@ type ProfileCardProps = {
 
 type RenderItemParams = {
   index: number;
-  item: ImageSourcePropType;
+  item: string;
 };
 
 const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
@@ -62,7 +63,7 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
           renderItem={({ item }: RenderItemParams) => (
             <Image
               source={item}
-              resizeMode="cover"
+              contentFit="cover"
               style={{ width: "100%", height: "100%" }}
             />
           )}
