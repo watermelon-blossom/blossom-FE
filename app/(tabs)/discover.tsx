@@ -3,24 +3,20 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { theme } from "@/constants/colors";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSharedValue } from "react-native-reanimated";
-import SwipeAnimation, {
-  CardAnimationRef,
-} from "@/components/ui/CardAnimation";
+import { CardAnimationRef } from "@/components/ui/CardAnimation";
 import { wScale } from "@/util/responsive.util";
 import { router, useNavigation } from "expo-router";
 import { ICarouselInstance } from "react-native-reanimated-carousel";
-import ProfileCard, { Profile } from "@/components/ui/ProfileCard";
+import ProfileCard from "@/components/ui/ProfileCard";
 import { useAnimationEffectActions } from "@/store/useLayoutStore";
 import ActionButton from "@/components/ui/ActionButton";
 import CText from "@/components/ui/CText";
-import { MaterialIcons } from "@expo/vector-icons";
 import Filter from "@/components/ui/Filter";
 import IconButton from "@/components/ui/IconButton";
 import SlideModal, { SlideModalRefType } from "@/components/ui/SlideModal";
 import CardAnimation from "@/components/ui/CardAnimation";
 import { profiles } from "@/data/profileData";
 import { Image } from "expo-image";
-import Heading from "@/components/ui/Heading";
 
 export default function discover() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,10 +27,27 @@ export default function discover() {
   const { startAnimation } = useAnimationEffectActions();
   const navigation = useNavigation("/(tabs)");
   const slideModalRef = useRef<SlideModalRefType>(null);
+  const [timer, setTimer] = useState(60 * 60 * 6);
 
   const handleModal = () => {
     slideModalRef.current?.hide();
     //api call
+  };
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
+
+  const formatTime = (time: number) => {
+    const hrs = Math.floor(time / 3600);
+    const mins = Math.floor((time % 3600) / 60);
+    const secs = time % 60;
+    return `${hrs}시간 ${mins}분 ${secs}초`;
   };
 
   useLayoutEffect(() => {
@@ -128,19 +141,19 @@ export default function discover() {
         </View>
       ) : (
         <View style={styles.card}>
-          {/* <Heading level={2}>
-            
-            {new Date(time * 1000).toISOString().substr(11, 8)}
-          </Heading> */}
+          <Image
+            source={require("@/assets/images/heart.gif")}
+            style={styles.gif}
+          />
           <CText
             size="md"
-            numberOfLines={2}
             style={{
               textAlign: "center",
               padding: wScale(30),
             }}
           >
-            다음 친구 추천까지{"\n"}5시간 59분 50초 남았습니다!
+            다음 친구 추천까지{"\n"}
+            {formatTime(timer)} 남았습니다!
           </CText>
         </View>
       )}
@@ -181,5 +194,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: wScale(20),
   },
-  image: { width: "100%", height: "100%", borderRadius: wScale(20) },
+  gif: {
+    width: wScale(256),
+    height: wScale(256),
+    alignSelf: "center",
+  },
 });
