@@ -10,6 +10,7 @@ type SliderProps = {
   value: number[];
   min: number;
   max: number;
+  length?: number;
   disabled?: boolean;
   containerStyle?: ViewStyle;
   onChange: (name: string, value: number[]) => void;
@@ -20,6 +21,7 @@ export default function DoubleSliderInput({
   value,
   min = 0,
   max = 1,
+  length = wScale(295),
   disabled = false,
   containerStyle,
   onChange,
@@ -38,6 +40,7 @@ export default function DoubleSliderInput({
       customMarker={(props) => {
         return <Marker {...props} />;
       }}
+      sliderLength={length}
       containerStyle={containerStyle}
       trackStyle={disabled ? styles.disabledTrack : styles.track}
       selectedStyle={

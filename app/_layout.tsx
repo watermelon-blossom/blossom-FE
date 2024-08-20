@@ -50,6 +50,7 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="index" />
             <Stack.Screen name="matchSuccess" />
+            <Stack.Screen name="profile" />
             <Stack.Screen name="hyunwooTest" />
             <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />

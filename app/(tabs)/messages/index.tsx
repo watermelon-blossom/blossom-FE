@@ -4,17 +4,28 @@ import { FlatList, StyleSheet, View } from "react-native";
 import CText from "@/components/ui/CText";
 import TextInput from "@/components/ui/TextInput";
 import SvgIcon from "@/components/ui/SvgIcon";
-import ChattingItem from "@/components/ui/ChattingItem";
+import ChattingItem, {
+  ChattingItem as ChattingItemType,
+} from "@/components/ui/ChattingItem";
 
 import { wScale } from "@/util/responsive.util";
 import { gray } from "@/constants/colors";
 import { CHATTING_LIST_TEST_DATA } from "@/data/chattingListTestData";
+import { router } from "expo-router";
 
 export default function messages() {
   const [userInput, setUserInput] = useState("");
   const filteredData = CHATTING_LIST_TEST_DATA.filter((item) =>
     item.name.includes(userInput)
   );
+
+  const handlePressItem = (item: ChattingItemType) => {
+    const selectedUserData = JSON.stringify(item);
+
+    router.navigate(
+      `/messages/${item.id}?data=${encodeURIComponent(selectedUserData)}`
+    );
+  };
 
   const handleChangeInput = (_: string, text: string) => {
     setUserInput(text);
@@ -43,10 +54,11 @@ export default function messages() {
             lastMessage={item.lastMessage}
             uri={item.uri}
             time={item.time}
+            onPress={() => handlePressItem(item)}
           />
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );

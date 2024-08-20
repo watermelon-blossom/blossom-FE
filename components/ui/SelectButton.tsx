@@ -2,33 +2,43 @@ import { gray, theme } from "@/constants/colors";
 import { Pressable, StyleSheet, View } from "react-native";
 import CText from "./CText";
 import { wScale } from "@/util/responsive.util";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const datas = [
   {
-    label: "Girls",
+    label: "찰떡",
     value: 1,
   },
   {
-    label: "Boys",
+    label: "애매",
     value: 2,
   },
   {
-    label: "Both",
+    label: "앙숙",
     value: 3,
   },
 ];
 
 type SelectButtonProps = {
-  onSelectMenu: (label: string) => void;
+  name: string;
+  defaultVal?: number;
+  onSelectMenu: (name: string, value: number) => void;
 };
 
-export default function SelectButton({ onSelectMenu }: SelectButtonProps) {
-  const [selected, setSelected] = useState(1);
+export default function SelectButton({
+  name,
+  defaultVal = 1,
+  onSelectMenu,
+}: SelectButtonProps) {
+  const [selected, setSelected] = useState(defaultVal);
 
-  const handlePressMenu = (label: string, value: number) => {
+  useEffect(() => {
+    setSelected(defaultVal);
+  }, [defaultVal]);
+
+  const handlePressMenu = (value: number) => {
     setSelected(value);
-    onSelectMenu(label);
+    onSelectMenu(name, value);
   };
 
   return (
@@ -43,7 +53,7 @@ export default function SelectButton({ onSelectMenu }: SelectButtonProps) {
                 backgroundColor: theme.primary,
               },
             ]}
-            onPress={() => handlePressMenu(data.label, data.value)}
+            onPress={() => handlePressMenu(data.value)}
           >
             <CText
               style={[
