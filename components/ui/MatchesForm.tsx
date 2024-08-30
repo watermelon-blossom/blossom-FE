@@ -2,23 +2,28 @@ import { wScale } from "@/util/responsive.util";
 import { StyleSheet, View } from "react-native";
 import CText from "./CText";
 import { gray, theme } from "@/constants/colors";
-import MiniProfile, { Person } from "./MiniProfile";
+import MiniProfile from "./MiniProfile";
+import { getMatchesDate } from "@/util/moment.util";
 
 export type MatchesItem = {
+  id: string;
+  name: string;
+  age: number;
+  matched: "match" | "like" | "reject" | "yet";
+  image: string;
   date: string;
-  profile: Person[];
 };
 
 type MatchesLayoutProps = {
-  data: MatchesItem;
-  onSelectLike: (action: string, profile: Person) => void;
+  data: { date: string; items: MatchesItem[] };
+  onSelectLike: (action: string, profile: MatchesItem) => void;
 };
 
-export default function MatchesLayout({
+export default function MatchesForm({
   data,
   onSelectLike,
 }: MatchesLayoutProps) {
-  const handleLike = (action: string, profile: Person) => {
+  const handleLike = (action: string, profile: MatchesItem) => {
     onSelectLike(action, profile);
   };
   return (
@@ -27,19 +32,19 @@ export default function MatchesLayout({
         <View style={styles.separater} />
         <View style={styles.dateTextWrapper}>
           <CText style={styles.dateText} size="sm">
-            {data.date}
+            {getMatchesDate(data.date)}
           </CText>
         </View>
       </View>
       <View style={styles.profileWrapper}>
-        {data.profile.map(
+        {data.items.map(
           (item, index) =>
             index % 2 === 0 && (
               <View key={index} style={styles.row}>
                 <MiniProfile data={item} onPress={handleLike} />
-                {index + 1 < data.profile.length && (
+                {index + 1 < data.items.length && (
                   <MiniProfile
-                    data={data.profile[index + 1]}
+                    data={data.items[index + 1]}
                     onPress={handleLike}
                   />
                 )}

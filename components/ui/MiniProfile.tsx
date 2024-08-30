@@ -5,28 +5,16 @@ import { gray, theme } from "@/constants/colors";
 import { BlurView } from "expo-blur";
 import SvgIcon from "./SvgIcon";
 import CText from "./CText";
-import {
-  Gesture,
-  GestureDetector,
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
-import { runOnJS } from "react-native-reanimated";
 import { router } from "expo-router";
 import { Image } from "expo-image";
 import IconButton from "./IconButton";
-
-export type Person = {
-  name: string;
-  age: number;
-  matched: "match" | "reject" | "yet";
-  Image: string;
-};
+import { MatchesItem } from "./MatchesForm";
 
 type MiniProfileProps = {
-  data: Person;
+  data: MatchesItem;
   width?: number;
   height?: number;
-  onPress: (action: string, profile: Person) => void;
+  onPress: (action: string, profile: MatchesItem) => void;
   style?: ViewStyle;
 };
 
@@ -37,11 +25,6 @@ export default function MiniProfile({
   onPress,
   style,
 }: MiniProfileProps) {
-  const photoTap = Gesture.Tap()
-    .maxDuration(500)
-    .onStart(() => {
-      runOnJS(router.navigate)("account");
-    });
   const handleDislikePress = () => {
     onPress("dislike", data);
   };
@@ -50,16 +33,14 @@ export default function MiniProfile({
   };
 
   return (
-    <GestureHandlerRootView
-      style={[{ width, height }, styles.container, style]}
-    >
-      <GestureDetector gesture={photoTap}>
+    <View style={[{ width, height }, styles.container, style]}>
+      <Pressable onPress={() => router.navigate(`profile/${data.id}`)}>
         <Image
-          source={data.Image}
+          source={data.image}
           contentFit="cover"
           style={[styles.image, data.matched === "reject" && { opacity: 0.3 }]}
         />
-      </GestureDetector>
+      </Pressable>
       <CText
         size="md"
         color={data.matched === "reject" ? gray[500] : theme.white}
@@ -111,7 +92,7 @@ export default function MiniProfile({
           style={styles.matchLocation}
         />
       )}
-    </GestureHandlerRootView>
+    </View>
   );
 }
 
