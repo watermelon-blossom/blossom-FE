@@ -21,7 +21,7 @@ export default function profile() {
 
   useEffect(() => {
     //api call with user id
-    console.log(id);
+    // console.log(id);
     // setData(sample_data);
   }, []);
 
@@ -38,7 +38,12 @@ export default function profile() {
   return (
     <View style={styles.container}>
       <Pressable
-        onPress={() => router.navigate(`profile/${id}/fullScreenPhoto`)}
+        onPress={() =>
+          router.navigate({
+            pathname: `profile/${id}/fullScreenPhoto`,
+            params: { data: data.images },
+          })
+        }
       >
         <ReCarousel
           ref={ref}
