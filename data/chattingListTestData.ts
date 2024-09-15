@@ -3,7 +3,7 @@ import moment from "moment";
 
 export const CHATTING_LIST_TEST_DATA: ChattingItem[] = [
   {
-    id: "1",
+    id: "YANGID",
     name: "이시연",
     count: 123,
     lastMessage: "아저씨 누군데요!!!",

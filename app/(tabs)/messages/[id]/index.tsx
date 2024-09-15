@@ -18,8 +18,9 @@ import { getChatTime, getDateKorean } from "@/util/moment.util";
 import { wScale } from "@/util/responsive.util";
 
 import { CHATTING_TEST_DATA, getChats } from "@/data/chattingTestData";
-
-const ME_ID = "2";
+import useSocket from "@/api/ws/useSocket";
+const ME_ID = "5";
+const ROOM_ID = "66e68eb2757c7a6014840b39";
 
 export default function chatIndex() {
   const { id, data } = useLocalSearchParams();
@@ -27,6 +28,7 @@ export default function chatIndex() {
     decodeURIComponent(data as string)
   ) as ChattingItem;
   const navigation = useNavigation("/(tabs)");
+  const socket = useSocket(ROOM_ID);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,7 +48,7 @@ export default function chatIndex() {
     // online status, chat history
 
     Math.random() > 0.5 && setIsOnline(true);
-    setChatData(CHATTING_TEST_DATA);
+    // setChatData(CHATTING_TEST_DATA);
   }, []);
 
   useEffect(() => {
@@ -56,19 +58,18 @@ export default function chatIndex() {
   }, [chatData]);
 
   const sendMessage = () => {
-    // TODO: api
-    // send message
+    if (!socket) return;
 
-    const newChat: Chat = {
-      id: String(chatData.length + 1),
-      fromId: ME_ID,
-      toId: id as string,
-      message: userInput,
-      time: moment().toISOString(),
-      hasRead: false,
+    const newChat: any = {
+      roomId: ROOM_ID,
+      contentType: "TEXT",
+      senderId: ME_ID,
+      content: userInput,
     };
 
-    setChatData([newChat, ...chatData.slice(0, 20)]);
+    socket.emit("send", newChat);
+
+    // setChatData([newChat, ...chatData.slice(0, 20)]);
     setUserInput("");
     goToTop((prev) => !prev);
   };
@@ -84,7 +85,7 @@ export default function chatIndex() {
 
     // TODO: api
 
-    setChatData([...chatData, ...getChats()]);
+    // setChatData([...chatData, ...getChats()]);
   };
 
   const handleChangeInput = (_: string, text: string) => {
@@ -152,7 +153,9 @@ export default function chatIndex() {
         inverted
         windowSize={5} // 기본값은 21
         initialNumToRender={10}
-        ListFooterComponent={<ActivityIndicator />}
+        // ListFooterComponent={
+        // <View>{chatData.length ? <ActivityIndicator /> : null}</View>
+        // }
       />
 
       <View style={styles.input}>
