@@ -6,24 +6,56 @@ import { gray, theme } from "@/constants/colors";
 import { wScale } from "@/util/responsive.util";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import ReCarousel, {
   ICarouselInstance,
 } from "react-native-reanimated-carousel";
-import { profiles } from "@/data/profileTestData";
+import { useUserProfile } from "@/API/user/useUserProfile";
+import CText from "@/components/ui/CText";
+import { getImageURL } from "@/util/url.util";
+
+const MY_ID = 1;
 
 export default function profile() {
-  const [data, setData] = useState(profiles[0]);
+  const { id } = useLocalSearchParams();
+  const { userProfile, userProfileError, isUserProfileLoading } =
+    useUserProfile(MY_ID, Number(id));
   const ref = React.useRef<ICarouselInstance>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { id } = useLocalSearchParams();
+  console.log(userProfileError, isUserProfileLoading);
 
-  useEffect(() => {
-    //api call with user id
-    console.log(id);
-    // setData(sample_data);
-  }, []);
+  if (isUserProfileLoading) {
+    return (
+      <View>
+        <Image
+          source={require("@/assets/images/splash.png")}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </View>
+    );
+  }
+  if (userProfileError || !userProfile) {
+    return (
+      <View>
+        <CText>프로필을 불러오는데 실패했습니다.</CText>
+      </View>
+    );
+  }
+
+  const {
+    UserName,
+    job,
+    tendency,
+    userDescription,
+    questionInfos,
+    sex,
+    age,
+    distance,
+    location,
+    photos,
+    relationshipStatus,
+  } = userProfile;
 
   const handleLeftSwipe = () => {
     console.log("dislike");
@@ -39,7 +71,7 @@ export default function profile() {
     <View style={styles.container}>
       <ReCarousel
         ref={ref}
-        data={data.images}
+        data={photos}
         width={wScale(375)}
         height={wScale(415)}
         defaultIndex={0}
@@ -49,26 +81,27 @@ export default function profile() {
         scrollAnimationDuration={700}
         snapEnabled
         enabled
-        renderItem={({ item }) => (
-          <Image
-            source={item}
-            contentFit="cover"
-            style={{ width: "100%", height: "100%" }}
-          />
-        )}
+        renderItem={({ item: path }) => {
+          return (
+            <Image
+              source={getImageURL(path)}
+              contentFit="cover"
+              style={{ width: "100%", height: "100%" }}
+            />
+          );
+        }}
       />
       <IconButton
         iconName="back"
         iconSize={wScale(24)}
-        iconColor={theme.white}
+        iconColor={theme.primary}
         buttonSize={wScale(52)}
-        type="transparent"
         style={styles.back}
         onPress={() => router.back()}
       />
       <View style={styles.dotWrapper}>
         <PaginationDots
-          totalItems={data.images.length}
+          totalItems={photos.length}
           currentIndex={currentIndex}
           activeDotStyle={styles.activeDot}
           style={styles.pagination}
@@ -79,30 +112,30 @@ export default function profile() {
         <ActionButton
           type="REJECT"
           onPress={handleLeftSwipe}
-          disabled={data.matched === "yet" ? false : true}
+          disabled={relationshipStatus === "LIKE" ? false : true}
         />
         <ActionButton
           type="MATCH"
           onPress={handleRightSwipe}
-          disabled={data.matched === "yet" ? false : true}
+          disabled={relationshipStatus === "LIKE" ? false : true}
         />
         <ActionButton
           type="SUPERLIKE"
           onPress={handleDoubleTap}
-          disabled={data.matched === "yet" ? false : true}
+          disabled={relationshipStatus === "LIKE" ? false : true}
         />
       </View>
       <View style={styles.scrollHeader}>
         <ScrollView style={styles.profile}>
           <ProfileInfo
-            name={data.name}
-            age={data.age}
-            job={data.job}
-            tendency={data.tendency}
-            location={data.location}
-            distance={data.distance}
-            about={data.about}
-            questions={data.questions}
+            name={UserName}
+            age={age}
+            job={job}
+            tendency={tendency}
+            location={location}
+            distance={distance}
+            about={userDescription}
+            questions={questionInfos}
           />
         </ScrollView>
       </View>

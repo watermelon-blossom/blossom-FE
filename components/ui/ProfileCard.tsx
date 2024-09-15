@@ -13,10 +13,10 @@ import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 
 export type Profile = {
-  name: string;
+  userName: string;
   age: number;
   job: string;
-  images: string[];
+  photos: string[];
 };
 
 type ProfileCardProps = {
@@ -49,7 +49,7 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
       <View style={[{ width, height }, itemStyles.container]}>
         <ReCarousel
           ref={ref}
-          data={profile.images}
+          data={profile.photos}
           width={width}
           height={height}
           vertical={true}
@@ -82,7 +82,7 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
         </BlurView>
         <BlurView intensity={30} tint="dark" style={itemStyles.dotWrapper}>
           <PaginationDots
-            totalItems={profile.images.length}
+            totalItems={profile.photos.length}
             currentIndex={currentIdx}
             activeDotStyle={{ backgroundColor: theme.white }}
             style={itemStyles.dots}
@@ -95,7 +95,7 @@ const ProfileCard = React.forwardRef<ICarouselInstance, ProfileCardProps>(
         </BlurView>
         <BlurView intensity={40} tint="dark" style={itemStyles.profileWrapper}>
           <Heading level={3} style={{ color: theme.white }}>
-            {profile.name}, {profile.age}
+            {profile.userName}, {profile.age}
           </Heading>
           <Heading level={6} style={{ color: theme.white }}>
             {profile.job}

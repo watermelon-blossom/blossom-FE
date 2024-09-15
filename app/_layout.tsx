@@ -10,8 +10,11 @@ import "moment/locale/ko";
 import CSafeAreaView from "@/components/ui/CSafeAreaView";
 import AnimationEffect from "@/components/ui/AnimationEffect";
 import { StatusBar } from "expo-status-bar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -28,7 +31,7 @@ export default function RootLayout() {
   // testpage 자동 이동용
   useEffect(() => {
     if (loaded) {
-      router.navigate("matches");
+      router.navigate(`profile/${2}`);
     }
   }, [loaded]);
 
@@ -37,27 +40,29 @@ export default function RootLayout() {
   }
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-      <StatusBar style="dark" />
-      <SafeAreaProvider>
-        <CSafeAreaView>
-          <Stack
-            screenOptions={{
-              contentStyle: { backgroundColor: "white" },
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="index" />
-            <Stack.Screen name="matchSuccess" />
-            <Stack.Screen name="profile" />
-            <Stack.Screen name="hyunwooTest" />
-            <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <AnimationEffect />
-        </CSafeAreaView>
-      </SafeAreaProvider>
-    </KeyboardAvoidingView>
+    <QueryClientProvider client={queryClient}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <StatusBar style="dark" />
+        <SafeAreaProvider>
+          <CSafeAreaView>
+            <Stack
+              screenOptions={{
+                contentStyle: { backgroundColor: "white" },
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="index" />
+              <Stack.Screen name="matchSuccess" />
+              <Stack.Screen name="profile" />
+              <Stack.Screen name="hyunwooTest" />
+              <Stack.Screen name="siwonTest" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+            <AnimationEffect />
+          </CSafeAreaView>
+        </SafeAreaProvider>
+      </KeyboardAvoidingView>
+    </QueryClientProvider>
   );
 }
