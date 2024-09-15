@@ -91,7 +91,7 @@ export default function discover() {
       console.log("dislike");
     } else if (gesture === "profileTap") {
       console.log("go to profile");
-      router.navigate("account");
+      router.navigate(`profile/${profiles[currentIndex].id}`);
     } else if (gesture === "doubleTap") {
       console.log("superlike");
       startAnimation("star", () => {
