@@ -15,7 +15,7 @@ import { useUserProfile } from "@/API/user/useUserProfile";
 import CText from "@/components/ui/CText";
 import { getImageURL } from "@/util/url.util";
 
-const MY_ID = 10;
+const MY_ID = 1;
 
 export default function profile() {
   const { id } = useLocalSearchParams();
