@@ -4,7 +4,7 @@ type Profile = {
   age: number;
   job: string;
   images: string[];
-  matched: "matched" | "reject" | "yet";
+  matched: "matched" | "like" | "reject" | "yet";
   tendency: string;
   location: string;
   distance: number;
